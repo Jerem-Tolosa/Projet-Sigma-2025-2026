@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Îlots de Chaleur Urbains dans le Tarn</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        /* En-tête principal - TITRE SEULEMENT */
+        .main-header {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 3px solid #34495e;
+        }
+
+        .main-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* NOUVELLE SECTION INTRODUCTION */
+        .introduction-section {
+            padding: 60px 40px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .introduction-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .introduction-content p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            text-align: justify;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        /* Container principal */
+        .container {
+            background: white;
+        }
+
+        /* Section zone d'étude */
+        .zone-etude-section {
+            padding: 60px 40px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #2c3e50;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .zone-etude-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .text-block {
+            padding: 20px;
+        }
+
+        .text-block h3 {
+            color: #34495e;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        .text-block p {
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.05em;
+        }
+
+        .map-block {
+            height: 500px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Section vulnérabilité */
+        .temperature-section {
+            padding: 60px 40px;
+            background: #f8f9fa;
+        }
+
+        .temperature-intro {
+            max-width: 1400px;
+            margin: 0 auto 40px auto;
+            padding: 20px;
+        }
+
+        .temperature-intro p {
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.05em;
+        }
+
+        .temperature-maps {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .map-header {
+            background: #34495e;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .map-wrapper {
+            height: 500px;
+            border: 1px solid #ddd;
+        }
+
+        /* Section trois communes */
+        .trois-communes-maps {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* NOUVELLE SECTION TEMPÉRATURE EN BAS */
+        .moyenne-temperature-section {
+            padding: 60px 40px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .moyenne-temperature-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        /* Footer */
+        footer {
+            background: #34495e;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9em;
+            border-top: 3px solid #2c3e50;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .zone-etude-content,
+            .temperature-maps,
+            .moyenne-temperature-content,
+            .trois-communes-maps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête principal avec TITRE UNIQUEMENT -->
+        <header class="main-header">
+            <h1>Îlots de Chaleur Urbains dans le Tarn</h1>
+        </header>
+
+        <!-- NOUVELLE SECTION INTRODUCTION -->
+        <section class="introduction-section">
+            <div class="introduction-content">
+                <p>
+                    Les îlots de chaleur urbains représentent un phénomène climatique majeur dans le département du Tarn. 
+                    Cette étude analyse les variations thermiques entre les zones urbaines et rurales, avec un focus 
+                    particulier sur les principales agglomérations du département : Albi, Castres et Gaillac.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section Zone d'étude -->
+        <section class="zone-etude-section">
+            <h2 class="section-title">Zone d'Étude</h2>
+            
+            <div class="zone-etude-content">
+                <!-- Texte zone d'étude -->
+                <div class="text-block">
+                    <h3>Présentation du territoire</h3>
+                    <p>
+                        Le département du Tarn, situé dans la région Occitanie, constitue notre zone d'étude. 
+                        Ce territoire de 5 758 km² se caractérise par une grande diversité géographique, allant 
+                        des contreforts du Massif Central au nord aux plaines du Lauragais au sud.
+                    </p>
+                    <p>
+                        L'analyse porte sur l'ensemble des communes du département, avec une attention particulière 
+                        portée aux zones urbaines d'Albi (préfecture, 51 000 habitants), Castres (sous-préfecture, 
+                        42 000 habitants) et Gaillac (15 000 habitants). Ces trois agglomérations concentrent une 
+                        part importante de la population et présentent des caractéristiques urbaines propices au 
+                        développement d'îlots de chaleur.
+                    </p>
+                    <p>
+                        Le climat tarnais, de type océanique dégradé avec des influences méditerranéennes au sud, 
+                        connaît des étés de plus en plus chauds avec des épisodes caniculaires récurrents. Cette 
+                        évolution climatique accentue l'importance de l'étude des ICU pour l'adaptation territoriale 
+                        et la qualité de vie des habitants.
+                    </p>
+                </div>
+
+                <!-- Carte zone d'étude -->
+                <div class="map-block" id="map-zone-etude"></div>
+            </div>
+        </section>
+
+        <!-- Section Données de vulnérabilité -->
+        <section class="temperature-section">
+            <h2 class="section-title">Vulnérabilité Démographique</h2>
+            
+            <!-- Texte introductif -->
+            <div class="temperature-intro">
+                <p>
+                    L'analyse de la vulnérabilité démographique face aux îlots de chaleur urbains nécessite d'identifier 
+                    les populations les plus sensibles aux fortes chaleurs. Les enfants de 0 à 14 ans et les personnes 
+                    âgées de 65 ans et plus constituent les deux groupes d'âge les plus vulnérables lors des épisodes 
+                    caniculaires. La cartographie de ces populations permet de cibler les secteurs prioritaires pour 
+                    les actions de prévention et d'adaptation climatique.
+                </p>
+            </div>
+
+            <!-- Les deux cartes de vulnérabilité -->
+            <div class="temperature-maps">
+                <!-- Carte population 0-14 ans (REMPLACE la carte température brute) -->
+                <div class="map-container">
+                    <div class="map-header">Population de 0 à 14 ans</div>
+                    <div class="map-wrapper" id="map-pop0014"></div>
+                </div>
+
+                <!-- Carte population âgée -->
+                <div class="map-container">
+                    <div class="map-header">Population Âgée de 65 ans et Plus</div>
+                    <div class="map-wrapper" id="map-population"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOUVELLE SECTION TEMPÉRATURE MOYENNE EN BAS -->
+        <section class="moyenne-temperature-section">
+            <h2 class="section-title">Température Moyenne par Commune</h2>
+            
+            <div class="moyenne-temperature-content">
+                <!-- Texte température moyenne -->
+                <div class="text-block">
+                    <h3>Analyse thermique du territoire</h3>
+                    <p>
+                        La température moyenne par commune révèle les disparités thermiques à l'échelle du département 
+                        du Tarn. Cette analyse permet d'identifier les communes où les populations vulnérables sont 
+                        les plus exposées aux températures élevées.
+                    </p>
+                    <p>
+                        Les zones urbaines d'Albi, Castres et Gaillac présentent des températures moyennes plus élevées 
+                        que les zones rurales environnantes, confirmant l'existence d'îlots de chaleur urbains. Ces 
+                        écarts de température, pouvant atteindre plusieurs degrés, ont des conséquences directes sur 
+                        le confort thermique et la santé des habitants.
+                    </p>
+                    <p>
+                        Le croisement de ces données thermiques avec les cartes de vulnérabilité démographique permet 
+                        d'établir une hiérarchisation des territoires nécessitant des mesures d'adaptation prioritaires, 
+                        notamment en termes de végétalisation, de désimperméabilisation des sols et de création d'îlots 
+                        de fraîcheur.
+                    </p>
+                </div>
+
+                <!-- Carte température moyenne -->
+                <div class="map-block" id="map-temp-commune"></div>
+            </div>
+        </section>
+
+        <!-- NOUVELLE SECTION FOCUS SUR TROIS COMMUNES -->
+        <section class="temperature-section">
+            <h2 class="section-title">Focus sur Trois Communes</h2>
+            
+            <!-- Texte introductif -->
+            <div class="temperature-intro">
+                <p>
+                    Pour mieux comprendre les effets des îlots de chaleur urbains à l'échelle locale, un focus 
+                    détaillé est réalisé sur trois communes représentatives du département du Tarn. Ces analyses 
+                    à haute résolution permettent d'identifier précisément les zones les plus chaudes au sein 
+                    des tissus urbains et d'orienter les stratégies d'adaptation climatique à l'échelle communale.
+                </p>
+            </div>
+
+            <!-- Les trois cartes communales alignées -->
+            <div class="trois-communes-maps">
+                <!-- Carte Commune 1 (vide pour l'instant) -->
+                <div class="map-container">
+                    <div class="map-header">Commune 1</div>
+                    <div class="map-wrapper" id="map-commune1"></div>
+                </div>
+
+                <!-- Carte Albi (au centre avec ICU) -->
+                <div class="map-container">
+                    <div class="map-header">Albi - Îlots de Chaleur Urbains</div>
+                    <div class="map-wrapper" id="map-albi"></div>
+                </div>
+
+                <!-- Carte Commune 3 (vide pour l'instant) -->
+                <div class="map-container">
+                    <div class="map-header">Commune 3</div>
+                    <div class="map-wrapper" id="map-commune3"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pied de page -->
+        <footer>
+            <p>&copy; 2024 - Étude des Îlots de Chaleur Urbains dans le Tarn | Données OpenStreetMap & INSEE</p>
+            <p>Achour Maria, Delaperche Lucie, Djouadi Pablo, Nougier Jeremie</p>
+        </footer>
+    </div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Fichiers de données - À placer dans le même dossier -->
+    <script src="icu_communes_0.js"></script>
+    <script src="icu_pop_insee_stat_014.js"></script>
+    <script src="vue_temperature_moyenne_communes_0.js"></script>
+    
+    <script>
+        // ==================== CARTE 1 : ZONE D'ÉTUDE ====================
+        const mapZone = L.map('map-zone-etude', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        }).setView([43.78, 2.13], 9);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(mapZone);
+
+        // Ajouter la couche des communes (contours)
+        if (typeof json_icu_communes_0 !== 'undefined') {
+            const communesLayer = L.geoJson(json_icu_communes_0, {
+                style: {
+                    color: '#2c3e50',
+                    weight: 2,
+                    fillColor: 'rgba(141,90,153,0.1)',
+                    fillOpacity: 0.3
+                },
+                onEachFeature: function(feature, layer) {
+                    if (feature.properties['nom']) {
+                        let popup = '<div style="font-weight:bold; font-size:1.1em; color:#2c3e50;">' + 
+                                    feature.properties['nom'] + '</div>';
+                        if (feature.properties['population']) {
+                            popup += '<div>Population : ' + feature.properties['population'].toLocaleString() + '</div>';
+                        }
+                        layer.bindPopup(popup);
+                    }
+                }
+            }).addTo(mapZone);
+            mapZone.fitBounds(communesLayer.getBounds());
+        }
+
+        // ==================== CARTE 2 : POPULATION 0-14 ANS ====================
+        const mapPop0014 = L.map('map-pop0014', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        }).setView([43.78, 2.13], 9);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(mapPop0014);
+
+        // Fonction de style pour la population 0-14 ans (basée sur pop0014)
+        function stylePop0014(feature) {
+            const pop0014 = feature.properties['pop0014'];
+            
+            // Classification basée sur les seuils du fichier original avec palette rouge
+            if (pop0014 >= 0.000000 && pop0014 <= 12.365084) {
+                return {
+                    pane: 'pane_pop0014',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,255,255,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop0014 > 12.365084 && pop0014 <= 41.307516) {
+                return {
+                    pane: 'pane_pop0014',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,213,213,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop0014 > 41.307516 && pop0014 <= 88.977114) {
+                return {
+                    pane: 'pane_pop0014',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,170,170,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop0014 > 88.977114 && pop0014 <= 156.326810) {
+                return {
+                    pane: 'pane_pop0014',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,128,128,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop0014 > 156.326810 && pop0014 <= 263.906108) {
+                return {
+                    pane: 'pane_pop0014',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,85,85,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop0014 > 263.906108 && pop0014 <= 418.183876) {
+                return {
+                    pane: 'pane_pop0014',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,42,42,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop0014 > 418.183876 && pop0014 <= 751.677639) {
+                return {
+                    pane: 'pane_pop0014',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,0,0,1.0)',
+                    interactive: true
+                };
+            }
+            
+            // Valeur par défaut
+            return {
+                pane: 'pane_pop0014',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.0)',
+                weight: 1,
+                fill: true,
+                fillOpacity: 0.5,
+                fillColor: 'rgba(200,200,200,1.0)',
+                interactive: true
+            };
+        }
+
+        // Créer le pane pour la couche pop0014
+        mapPop0014.createPane('pane_pop0014');
+        mapPop0014.getPane('pane_pop0014').style.zIndex = 400;
+
+        // Ajouter la couche de population 0-14 ans
+        if (typeof json_icu_pop_insee_stat_0 !== 'undefined') {
+            const pop0014Layer = L.geoJson(json_icu_pop_insee_stat_0, {
+                style: stylePop0014,
+                onEachFeature: function(feature, layer) {
+                    let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+                    
+                    popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">Carreau ' + 
+                                    (feature.properties['id_carreau_1km'] || feature.properties['id']) + '</td></tr>';
+                    
+                    if (feature.properties['pop']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population totale</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop']) + ' habitants</td></tr>';
+                    }
+                    if (feature.properties['pop0014']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population 0-14 ans</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop0014']) + ' personnes</td></tr>';
+                    }
+                    if (feature.properties['pop'] && feature.properties['pop0014']) {
+                        const pourcentage = ((feature.properties['pop0014'] / feature.properties['pop']) * 100).toFixed(1);
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Pourcentage 0-14 ans</strong></td><td style="padding:5px;">' + 
+                                        pourcentage + '%</td></tr>';
+                    }
+                    if (feature.properties['pop65p']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population 65 ans et +</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop65p']) + ' personnes</td></tr>';
+                    }
+                    
+                    popupContent += '</table>';
+                    layer.bindPopup(popupContent, { maxHeight: 400 });
+                }
+            }).addTo(mapPop0014);
+            mapPop0014.fitBounds(pop0014Layer.getBounds());
+        }
+
+        // Ajouter une légende pour la carte de population 0-14 ans
+        const legendPop0014 = L.control({ position: 'bottomright' });
+        
+        legendPop0014.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '5px';
+            
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Population 0-14 ans</h4>';
+            
+            const categories = [
+                { label: '418 - 752', color: 'rgba(255,0,0,1.0)' },
+                { label: '264 - 418', color: 'rgba(255,42,42,1.0)' },
+                { label: '156 - 263', color: 'rgba(255,85,85,1.0)' },
+                { label: '89 - 156', color: 'rgba(255,128,128,1.0)' },
+                { label: '41 - 88', color: 'rgba(255,170,170,1.0)' },
+                { label: '12 - 41', color: 'rgba(255,213,213,1.0)' },
+                { label: '0 - 12', color: 'rgba(255,255,255,1.0)' }
+            ];
+            
+            categories.forEach(cat => {
+                div.innerHTML += 
+                    '<div style="display:flex; align-items:center; margin:5px 0; font-size:0.9em;">' +
+                    '<div style="width:30px; height:20px; background:' + cat.color + '; margin-right:10px; border:1px solid #999;"></div>' +
+                    '<span>' + cat.label + '</span>' +
+                    '</div>';
+            });
+            
+            return div;
+        };
+        
+        legendPop0014.addTo(mapPop0014);
+
+        // ==================== CARTE 3 : POPULATION ÂGÉE ====================
+        const mapPopulation = L.map('map-population', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        }).setView([43.78, 2.13], 9);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(mapPopulation);
+
+        // Fonction de style pour la population âgée (basée sur pop65p)
+        function stylePopulation(feature) {
+            const pop65p = feature.properties['pop65p'];
+            
+            // Classification selon les seuils définis
+            if (pop65p >= 0 && pop65p <= 22.935243) {
+                return {
+                    pane: 'pane_population',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,255,255,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop65p > 22.935243 && pop65p <= 78.769993) {
+                return {
+                    pane: 'pane_population',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,213,213,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop65p > 78.769993 && pop65p <= 181.730734) {
+                return {
+                    pane: 'pane_population',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,170,170,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop65p > 181.730734 && pop65p <= 348.738706) {
+                return {
+                    pane: 'pane_population',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,128,128,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop65p > 348.738706 && pop65p <= 608.593423) {
+                return {
+                    pane: 'pane_population',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,85,85,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop65p > 608.593423 && pop65p <= 852.606524) {
+                return {
+                    pane: 'pane_population',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,42,42,1.0)',
+                    interactive: true
+                };
+            }
+            if (pop65p > 852.606524 && pop65p <= 1289.188662) {
+                return {
+                    pane: 'pane_population',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,0.0)',
+                    weight: 1,
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(255,0,0,1.0)',
+                    interactive: true
+                };
+            }
+            
+            // Valeur par défaut
+            return {
+                pane: 'pane_population',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.0)',
+                weight: 1,
+                fill: true,
+                fillOpacity: 0.5,
+                fillColor: 'rgba(200,200,200,1.0)',
+                interactive: true
+            };
+        }
+
+        // Créer le pane pour la couche population
+        mapPopulation.createPane('pane_population');
+        mapPopulation.getPane('pane_population').style.zIndex = 400;
+
+        // Ajouter la couche de population
+        if (typeof json_icu_pop_insee_stat_0 !== 'undefined') {
+            const populationLayer = L.geoJson(json_icu_pop_insee_stat_0, {
+                style: stylePopulation,
+                onEachFeature: function(feature, layer) {
+                    let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+                    
+                    popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">Carreau ' + 
+                                    (feature.properties['id_carreau_1km'] || feature.properties['id']) + '</td></tr>';
+                    
+                    if (feature.properties['pop']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population totale</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop']) + ' habitants</td></tr>';
+                    }
+                    if (feature.properties['pop65p']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population 65 ans et +</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop65p']) + ' personnes</td></tr>';
+                    }
+                    if (feature.properties['pop'] && feature.properties['pop65p']) {
+                        const pourcentage = ((feature.properties['pop65p'] / feature.properties['pop']) * 100).toFixed(1);
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Pourcentage 65+</strong></td><td style="padding:5px;">' + 
+                                        pourcentage + '%</td></tr>';
+                    }
+                    if (feature.properties['pop0014']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population 0-14 ans</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop0014']) + ' personnes</td></tr>';
+                    }
+                    
+                    popupContent += '</table>';
+                    layer.bindPopup(popupContent, { maxHeight: 400 });
+                }
+            }).addTo(mapPopulation);
+            mapPopulation.fitBounds(populationLayer.getBounds());
+        }
+
+        // Ajouter une légende pour la carte de population
+        const legendPopulation = L.control({ position: 'bottomright' });
+        
+        legendPopulation.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '5px';
+            
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Population 65 ans et +</h4>';
+            
+            const categories = [
+                { label: '853 - 1289', color: 'rgba(255,0,0,1.0)' },
+                { label: '609 - 852', color: 'rgba(255,42,42,1.0)' },
+                { label: '349 - 608', color: 'rgba(255,85,85,1.0)' },
+                { label: '182 - 348', color: 'rgba(255,128,128,1.0)' },
+                { label: '79 - 181', color: 'rgba(255,170,170,1.0)' },
+                { label: '23 - 78', color: 'rgba(255,213,213,1.0)' },
+                { label: '0 - 22', color: 'rgba(255,255,255,1.0)' }
+            ];
+            
+            categories.forEach(cat => {
+                div.innerHTML += 
+                    '<div style="display:flex; align-items:center; margin:5px 0; font-size:0.9em;">' +
+                    '<div style="width:30px; height:20px; background:' + cat.color + '; margin-right:10px; border:1px solid #999;"></div>' +
+                    '<span>' + cat.label + '</span>' +
+                    '</div>';
+            });
+            
+            return div;
+        };
+        
+        legendPopulation.addTo(mapPopulation);
+
+        // ==================== CARTE 4 : MOYENNES PAR COMMUNE ====================
+        const mapTempCommune = L.map('map-temp-commune', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        }).setView([43.78, 2.13], 9);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(mapTempCommune);
+
+        // Fonction de style pour les moyennes par commune
+        function styleTempCommune(feature) {
+            const categorie = feature.properties['categorie_temp'];
+            
+            switch(categorie) {
+                case 'Très chaud (≥28°C)':
+                    return {
+                        color: '#232323',
+                        weight: 1.0,
+                        fillColor: '#e31a1c',
+                        fillOpacity: 1
+                    };
+                case 'Chaud (26-28°C)':
+                    return {
+                        color: '#232323',
+                        weight: 1.0,
+                        fillColor: '#ff7f00',
+                        fillOpacity: 1
+                    };
+                case 'Tempéré chaud (24-26°C)':
+                    return {
+                        color: '#232323',
+                        weight: 1.0,
+                        fillColor: '#b2df8a',
+                        fillOpacity: 1
+                    };
+                default:
+                    return {
+                        color: '#232323',
+                        weight: 1.0,
+                        fillColor: '#cccccc',
+                        fillOpacity: 0.5
+                    };
+            }
+        }
+
+        // Ajouter la couche de température moyenne par commune
+        if (typeof json_vue_temperature_moyenne_communes_0 !== 'undefined') {
+            const tempCommuneLayer = L.geoJson(json_vue_temperature_moyenne_communes_0, {
+                style: styleTempCommune,
+                onEachFeature: function(feature, layer) {
+                    let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+                    
+                    if (feature.properties['commune']) {
+                        popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">' + 
+                                        feature.properties['commune'] + '</td></tr>';
+                    }
+                    if (feature.properties['temp_moyenne']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Température moyenne</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['temp_moyenne'].toFixed(2) + '°C</td></tr>';
+                    }
+                    if (feature.properties['categorie_temp']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Catégorie</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['categorie_temp'] + '</td></tr>';
+                    }
+                    if (feature.properties['population']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['population'].toLocaleString() + '</td></tr>';
+                    }
+                    
+                    popupContent += '</table>';
+                    layer.bindPopup(popupContent, { maxHeight: 400 });
+                }
+            }).addTo(mapTempCommune);
+            mapTempCommune.fitBounds(tempCommuneLayer.getBounds());
+        }
+
+        // Ajouter une légende sur la carte des moyennes
+        const legend = L.control({ position: 'bottomright' });
+        
+        legend.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '5px';
+            
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Température moyenne</h4>';
+            
+            const categories = [
+                { label: 'Très chaud (≥28°C)', color: '#e31a1c' },
+                { label: 'Chaud (26-28°C)', color: '#ff7f00' },
+                { label: 'Tempéré chaud (24-26°C)', color: '#b2df8a' }
+            ];
+            
+            categories.forEach(cat => {
+                div.innerHTML += 
+                    '<div style="display:flex; align-items:center; margin:5px 0; font-size:0.9em;">' +
+                    '<div style="width:30px; height:20px; background:' + cat.color + '; margin-right:10px; border:1px solid #232323;"></div>' +
+                    '<span>' + cat.label + '</span>' +
+                    '</div>';
+            });
+            
+            return div;
+        };
+        
+        legend.addTo(mapTempCommune);
+
+        // ==================== CARTES DES TROIS COMMUNES ====================
+        
+        // CARTE COMMUNE 1 (vide pour l'instant)
+        const mapCommune1 = L.map('map-commune1', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        }).setView([43.78, 2.13], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(mapCommune1);
+
+        // CARTE ALBI (au centre avec l'image ICU)
+        const mapAlbi = L.map('map-albi', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        }).setView([43.9288, 2.1318], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(mapAlbi);
+
+        // Ajouter l'image ICU d'Albi
+        var imgBoundsAlbi = [[43.88750753812116, 2.0514430447938317], [43.97003580872248, 2.212183731936459]];
+        var imageOverlayAlbi = L.imageOverlay('ICU_30m_0.png', imgBoundsAlbi, {
+            opacity: 1
+        }).addTo(mapAlbi);
+
+        // Ajuster la vue sur l'image
+        mapAlbi.fitBounds(imgBoundsAlbi);
+
+        // Ajouter une légende pour la carte ICU d'Albi
+        const legendAlbi = L.control({ position: 'bottomright' });
+        
+        legendAlbi.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '5px';
+            
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Température (°C)</h4>';
+            
+            // Gradient de couleurs pour l'échelle de -2 à 16
+            const gradient = 'linear-gradient(to top, ' +
+                'rgb(0, 0, 255) 0%, ' +      // -2°C : Bleu
+                'rgb(0, 255, 255) 12.5%, ' +  // ~0°C : Cyan
+                'rgb(0, 255, 0) 25%, ' +      // ~2°C : Vert
+                'rgb(255, 255, 0) 50%, ' +    // ~7°C : Jaune
+                'rgb(255, 165, 0) 75%, ' +    // ~12°C : Orange
+                'rgb(255, 0, 0) 100%' +       // 16°C : Rouge
+            ')';
+            
+            div.innerHTML += 
+                '<div style="display:flex; align-items:center; margin-top:10px;">' +
+                '<div style="width:30px; height:150px; background:' + gradient + '; margin-right:10px; border:1px solid #999;"></div>' +
+                '<div style="display:flex; flex-direction:column; justify-content:space-between; height:150px; font-size:0.85em;">' +
+                '<span>16°C</span>' +
+                '<span>12°C</span>' +
+                '<span>7°C</span>' +
+                '<span>2°C</span>' +
+                '<span>0°C</span>' +
+                '<span>-2°C</span>' +
+                '</div>' +
+                '</div>';
+            
+            return div;
+        };
+        
+        legendAlbi.addTo(mapAlbi);
+
+        // CARTE COMMUNE 3 (vide pour l'instant)
+        const mapCommune3 = L.map('map-commune3', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        }).setView([43.78, 2.13], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(mapCommune3);
+    </script>
+</body>
+</html>

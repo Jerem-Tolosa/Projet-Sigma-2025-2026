@@ -7,207 +7,471 @@
     
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen@2.4.0/Control.FullScreen.css" />
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+         * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: #f5f5f5;
-            color: #333;
-        }
+    body {
+        font-family: 'Georgia', 'Times New Roman', serif;
+        background: #f5f5f5;
+        color: #333;
+    }
 
-        /* En-tête principal - TITRE SEULEMENT */
-        .main-header {
-            background: #2c3e50;
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
-            border-bottom: 3px solid #34495e;
-        }
+    /* En-tête principal - TITRE SEULEMENT */
+    .main-header {
+        background: #2c3e50;
+        color: white;
+        padding: 60px 40px;
+        text-align: center;
+        border-bottom: 3px solid #34495e;
+    }
 
-        .main-header h1 {
-            font-size: 2.5em;
-            margin-bottom: 0;
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
+    .main-header h1 {
+        font-size: 2.5em;
+        margin-bottom: 0;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
 
-        /* NOUVELLE SECTION INTRODUCTION */
-        .introduction-section {
-            padding: 60px 40px;
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-        }
+    /* SECTION INTRODUCTION */
+    .introduction-section {
+        padding: 60px 40px;
+        background: white;
+        border-bottom: 1px solid #e0e0e0;
+    }
 
-        .introduction-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .introduction-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-        .introduction-content p {
-            font-size: 1.2em;
-            line-height: 1.8;
-            text-align: justify;
-            color: #444;
-            margin-bottom: 15px;
-        }
+    .introduction-content p {
+        font-size: 1.2em;
+        line-height: 1.8;
+        text-align: justify;
+        color: #444;
+        margin-bottom: 15px;
+    }
 
-        /* Container principal */
-        .container {
-            background: white;
-        }
+    /* Container principal */
+    .container {
+        background: white;
+    }
 
-        /* Section zone d'étude */
-        .zone-etude-section {
-            padding: 60px 40px;
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-        }
+    /* Section zone d'étude */
+    .zone-etude-section {
+        padding: 60px 40px;
+        background: white;
+        border-bottom: 1px solid #e0e0e0;
+    }
 
-        .section-title {
-            text-align: center;
-            font-size: 2em;
-            color: #2c3e50;
-            margin-bottom: 40px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #2c3e50;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .section-title {
+        text-align: center;
+        font-size: 2em;
+        color: #2c3e50;
+        margin-bottom: 40px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #2c3e50;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        .zone-etude-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-            align-items: start;
-        }
+    .zone-etude-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+        align-items: start;
+    }
 
-        .text-block {
-            padding: 20px;
-        }
+    .text-block {
+        padding: 20px;
+    }
 
-        .text-block h3 {
-            color: #34495e;
-            font-size: 1.4em;
-            margin-bottom: 20px;
-        }
+    .text-block h3 {
+        color: #34495e;
+        font-size: 1.4em;
+        margin-bottom: 20px;
+    }
 
-        .text-block p {
-            line-height: 1.8;
-            color: #444;
-            margin-bottom: 15px;
-            text-align: justify;
-            font-size: 1.05em;
-        }
+    .text-block p {
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 15px;
+        text-align: justify;
+        font-size: 1.05em;
+    }
 
-        .map-block {
-            height: 500px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+    .map-block {
+        height: 500px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
-        /* Section vulnérabilité */
-        .temperature-section {
-            padding: 60px 40px;
-            background: #f8f9fa;
-        }
+    /* Section vulnérabilité */
+    .temperature-section {
+        padding: 60px 40px;
+        background: #f8f9fa;
+    }
 
-        .temperature-intro {
-            max-width: 1400px;
-            margin: 0 auto 40px auto;
-            padding: 20px;
-        }
+    .temperature-intro {
+        max-width: 1400px;
+        margin: 0 auto 40px auto;
+        padding: 20px;
+    }
 
-        .temperature-intro p {
-            line-height: 1.8;
-            color: #444;
-            margin-bottom: 15px;
-            text-align: justify;
-            font-size: 1.05em;
-        }
+    .temperature-intro p {
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 15px;
+        text-align: justify;
+        font-size: 1.05em;
+    }
 
-        .temperature-maps {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+    .temperature-maps {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
 
-        .map-container {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+    .map-container {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
 
-        .map-header {
-            background: #34495e;
-            color: white;
-            padding: 15px 20px;
-            font-size: 1.1em;
-            font-weight: 500;
-        }
+    .map-header {
+        background: #34495e;
+        color: white;
+        padding: 15px 20px;
+        font-size: 1.1em;
+        font-weight: 500;
+    }
 
-        .map-wrapper {
-            height: 500px;
-            border: 1px solid #ddd;
-        }
+    .map-wrapper {
+        height: 500px;
+        border: 1px solid #ddd;
+    }
 
-        /* Section trois communes */
-        .trois-communes-maps {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+    /* Section trois communes - ZONES DE TEXTE */
+    .trois-communes-text {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 30px;
+        max-width: 1400px;
+        margin: 40px auto 0 auto;
+    }
 
-        /* NOUVELLE SECTION TEMPÉRATURE EN BAS */
-        .moyenne-temperature-section {
-            padding: 60px 40px;
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-        }
+    .commune-text-block {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
 
-        .moyenne-temperature-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-            align-items: start;
-        }
+    .commune-text-block h3 {
+        color: #2c3e50;
+        font-size: 1.3em;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #34495e;
+    }
 
-        /* Footer */
-        footer {
-            background: #34495e;
-            color: #ecf0f1;
-            text-align: center;
-            padding: 25px;
-            font-size: 0.9em;
-            border-top: 3px solid #2c3e50;
-        }
+    .commune-text-block p {
+        line-height: 1.7;
+        color: #444;
+        margin-bottom: 12px;
+        text-align: justify;
+        font-size: 1em;
+    }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .zone-etude-content,
-            .temperature-maps,
-            .moyenne-temperature-content,
-            .trois-communes-maps {
-                grid-template-columns: 1fr;
-            }
+    /* Section trois communes - CARTES */
+    .trois-communes-maps {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 30px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* SECTION TEMPÉRATURE EN BAS */
+    .moyenne-temperature-section {
+        padding: 60px 40px;
+        background: white;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .moyenne-temperature-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+        align-items: start;
+    }
+
+    /* Section carte interactive finale */
+    .carte-interactive-section {
+        padding: 60px 40px;
+        background: white;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .carte-interactive-container {
+        width: 100%;
+        height: 98vh;
+        min-height: 600px;
+        border: 2px solid #2c3e50;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        position: relative;
+    }
+
+    #map-interactive {
+        width: 100%;
+        height: 100%;
+    }
+    
+    /* Style pour le conteneur en fullscreen */
+    .fullscreen-active {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 9999 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .fullscreen-active #map-interactive {
+        height: 100% !important;
+    }
+
+    /* Style pour le contrôle des couches - FOND BLANC */
+    .leaflet-control-layers {
+        background: white !important;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .leaflet-control-layers-expanded {
+        padding: 10px;
+        background: white !important;
+    }
+
+    /* Contrôle personnalisé avec fond blanc */
+    .custom-layer-control {
+        background: white !important;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        max-width: 280px;
+        font-family: 'Georgia', 'Times New Roman', serif;
+    }
+    
+    .custom-layer-control h4 {
+        margin: 0 0 15px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #2c3e50;
+        color: #2c3e50;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    
+    /* Section Fonds de carte */
+    .basemap-section {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .basemap-title {
+        font-weight: 600;
+        color: #34495e;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    
+    .basemap-item {
+        margin: 6px 0;
+        display: flex;
+        align-items: center;
+    }
+    
+    .basemap-item input[type="radio"] {
+        margin-right: 8px;
+        cursor: pointer;
+    }
+    
+    .basemap-item label {
+        cursor: pointer;
+        font-size: 13px;
+        color: #444;
+    }
+    
+    /* Section Couches avec accordéon */
+    .layers-accordion {
+        margin-top: 10px;
+    }
+    
+    .accordion-header {
+        background: #f8f9fa;
+        padding: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        color: #2c3e50;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 4px;
+        transition: background 0.3s ease;
+        user-select: none;
+        font-size: 14px;
+    }
+    
+    .accordion-header:hover {
+        background: #e9ecef;
+    }
+    
+    .accordion-content {
+        max-height: 500px;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding-top: 10px;
+    }
+    
+    .accordion-content.hidden {
+        max-height: 0;
+        padding-top: 0;
+    }
+    
+    .layer-item {
+        margin: 8px 0;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+    }
+    
+    .layer-item input[type="checkbox"] {
+        margin-right: 8px;
+        cursor: pointer;
+    }
+    
+    .layer-item label {
+        cursor: pointer;
+        font-size: 13px;
+        color: #444;
+    }
+
+    /* Section de recherche de commune */
+    .commune-search-section {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .commune-search-title {
+        font-weight: 600;
+        color: #34495e;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    
+    .commune-search-input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 13px;
+        font-family: 'Georgia', 'Times New Roman', serif;
+        box-sizing: border-box;
+    }
+    
+    .commune-search-input:focus {
+        outline: none;
+        border-color: #2c3e50;
+    }
+    
+    .commune-suggestions {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        background: white;
+        display: none;
+    }
+    
+    .commune-suggestion-item {
+        padding: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: background 0.2s;
+    }
+    
+    .commune-suggestion-item:hover {
+        background: #f8f9fa;
+    }
+    
+    .commune-reset-btn {
+        width: 100%;
+        padding: 6px;
+        margin-top: 8px;
+        background: #e9ecef;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        color: #34495e;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+    
+    .commune-reset-btn:hover {
+        background: #2c3e50;
+        color: white;
+    }
+    
+    .commune-reset-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* Footer */
+    footer {
+        background: #34495e;
+        color: #ecf0f1;
+        text-align: center;
+        padding: 25px;
+        font-size: 0.9em;
+        border-top: 3px solid #2c3e50;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .zone-etude-content,
+        .temperature-maps,
+        .moyenne-temperature-content,
+        .trois-communes-maps,
+        .trois-communes-text {
+            grid-template-columns: 1fr;
         }
+    }
+        
     </style>
 </head>
 <body>
@@ -217,13 +481,13 @@
             <h1>Îlots de Chaleur Urbains dans le Tarn</h1>
         </header>
 
-        <!-- NOUVELLE SECTION INTRODUCTION -->
+        <!-- SECTION INTRODUCTION -->
         <section class="introduction-section">
             <div class="introduction-content">
                 <p>
                     Les îlots de chaleur urbains représentent un phénomène climatique majeur dans le département du Tarn. 
                     Cette étude analyse les variations thermiques entre les zones urbaines et rurales, avec un focus 
-                    particulier sur les principales agglomérations du département : Albi, Castres et Gaillac.
+                    particulier sur les principales agglomérations du département : Albi, Castres et Puylaurens.
                 </p>
             </div>
         </section>
@@ -242,22 +506,41 @@
                         des contreforts du Massif Central au nord aux plaines du Lauragais au sud.
                     </p>
                     <p>
-                        L'analyse porte sur l'ensemble des communes du département, avec une attention particulière 
-                        portée aux zones urbaines d'Albi (préfecture, 51 000 habitants), Castres (sous-préfecture, 
-                        42 000 habitants) et Gaillac (15 000 habitants). Ces trois agglomérations concentrent une 
-                        part importante de la population et présentent des caractéristiques urbaines propices au 
-                        développement d'îlots de chaleur.
+                        L'analyse porte sur l'ensemble des communes du département, avec une attention 
+                        particulière portée aux zones urbaines d'Albi (préfecture, 51 000 habitants), Castres 
+                        (sous-préfecture, 42 000 habitants) et Puylaurens (3 200 habitants). Les deux 
+                        premières agglomérations, Albi et Castres, se distinguent par un fort niveau 
+                        d'urbanisation propice au développement d'îlots de chaleur, tandis que Puylaurens a 
+                        été choisie comme point de comparaison en raison de son caractère plus rural.
                     </p>
                     <p>
-                        Le climat tarnais, de type océanique dégradé avec des influences méditerranéennes au sud, 
-                        connaît des étés de plus en plus chauds avec des épisodes caniculaires récurrents. Cette 
-                        évolution climatique accentue l'importance de l'étude des ICU pour l'adaptation territoriale 
-                        et la qualité de vie des habitants.
+                        Le climat tarnais, de type océanique dégradé avec des influences méditerranéennes au 
+                        sud, connaît des étés de plus en plus chauds avec des épisodes caniculaires récurrents. 
+                        Cette évolution climatique accentue l'importance de l'étude des ICU pour l'adaptation 
+                        territoriale et la qualité de vie des habitants.
                     </p>
                 </div>
 
                 <!-- Carte zone d'étude -->
                 <div class="map-block" id="map-zone-etude"></div>
+            </div>
+            
+            <!-- TEXTE AJOUTÉ EN DESSOUS DE LA CARTE -->
+            <div class="zone-etude-content" style="grid-template-columns: 1fr; margin-top: 40px;">
+                <div class="text-block">
+                    <p>
+                        Le changement climatique aggrave les vagues de chaleur en ville, amplifiées par les 
+                        îlots de chaleur urbains, exposant ainsi les populations à des défis majeurs : stress 
+                        thermique accru, inégalités d'exposition entre quartiers, et pression sur les 
+                        infrastructures (énergie, santé).
+                    </p>
+                    <p>
+                        Pour agir efficacement, les SIG et le webmapping permettent de cartographier les 
+                        vulnérabilités, de simuler des scénarios d'adaptation (comme la création d'oasis 
+                        urbains ou l'utilisation de revêtements réfléchissants), et de faciliter la prise de 
+                        décision grâce à des outils visuels et collaboratifs.
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -278,7 +561,7 @@
 
             <!-- Les deux cartes de vulnérabilité -->
             <div class="temperature-maps">
-                <!-- Carte population 0-14 ans (REMPLACE la carte température brute) -->
+                <!-- Carte population 0-14 ans -->
                 <div class="map-container">
                     <div class="map-header">Population de 0 à 14 ans</div>
                     <div class="map-wrapper" id="map-pop0014"></div>
@@ -292,7 +575,7 @@
             </div>
         </section>
 
-        <!-- NOUVELLE SECTION TEMPÉRATURE MOYENNE EN BAS -->
+        <!-- SECTION TEMPÉRATURE MOYENNE EN BAS -->
         <section class="moyenne-temperature-section">
             <h2 class="section-title">Température Moyenne par Commune</h2>
             
@@ -306,7 +589,7 @@
                         les plus exposées aux températures élevées.
                     </p>
                     <p>
-                        Les zones urbaines d'Albi, Castres et Gaillac présentent des températures moyennes plus élevées 
+                        Les zones urbaines d'Albi, Castres et Puylaurens présentent des températures moyennes plus élevées 
                         que les zones rurales environnantes, confirmant l'existence d'îlots de chaleur urbains. Ces 
                         écarts de température, pouvant atteindre plusieurs degrés, ont des conséquences directes sur 
                         le confort thermique et la santé des habitants.
@@ -324,56 +607,208 @@
             </div>
         </section>
 
-        <!-- NOUVELLE SECTION FOCUS SUR TROIS COMMUNES -->
+        <!-- SECTION FOCUS SUR TROIS COMMUNES -->
         <section class="temperature-section">
             <h2 class="section-title">Focus sur Trois Communes</h2>
             
             <!-- Texte introductif -->
             <div class="temperature-intro">
                 <p>
-                    Pour mieux comprendre les effets des îlots de chaleur urbains à l'échelle locale, un focus 
-                    détaillé est réalisé sur trois communes représentatives du département du Tarn. Ces analyses 
-                    à haute résolution permettent d'identifier précisément les zones les plus chaudes au sein 
-                    des tissus urbains et d'orienter les stratégies d'adaptation climatique à l'échelle communale.
+                    Pour mieux comprendre les mécanismes des îlots de chaleur urbains à l'échelle locale, trois communes 
+                    représentatives ont été sélectionnées selon leurs profils urbains distincts. Les analyses thermiques 
+                    à permettent d'identifier précisément les zones de surchauffe au 
+                    sein des tissus urbains et de distinguer l'influence respective de la densité bâtie, de 
+                    l'imperméabilisation des sols et de la présence végétale sur l'intensité des ICU.
+                </p>
+                <p>
+                    <strong>Méthodologie :</strong> Les trois profils types retenus sont : (1) Castres - zone urbaine dense 
+                    avec activité industrielle, (2) Albi - centre historique patrimonial avec zones périurbaines, 
+                    (3) Puylaurens - ville moyenne à caractère rural avec forte végétalisation. Cette approche comparative 
+                    permet d'adapter les stratégies d'atténuation aux spécificités de chaque territoire.
                 </p>
             </div>
 
             <!-- Les trois cartes communales alignées -->
             <div class="trois-communes-maps">
-                <!-- Carte Commune 1 (vide pour l'instant) -->
+                <!-- Carte Castres -->
                 <div class="map-container">
-                    <div class="map-header">Commune 1</div>
+                    <div class="map-header">Castres - Îlots de Chaleur Urbains</div>
                     <div class="map-wrapper" id="map-commune1"></div>
                 </div>
 
-                <!-- Carte Albi (au centre avec ICU) -->
+                <!-- Carte Albi -->
                 <div class="map-container">
                     <div class="map-header">Albi - Îlots de Chaleur Urbains</div>
                     <div class="map-wrapper" id="map-albi"></div>
                 </div>
 
-                <!-- Carte Commune 3 (vide pour l'instant) -->
+                <!-- Carte Puylaurens -->
                 <div class="map-container">
-                    <div class="map-header">Commune 3</div>
+                    <div class="map-header">Puylaurens - Îlots de Chaleur Urbains</div>
                     <div class="map-wrapper" id="map-commune3"></div>
                 </div>
+            </div>
+
+            <!-- ZONES DE TEXTE EN TROIS COLONNES EN DESSOUS DES CARTES -->
+            <div class="trois-communes-text">
+                <!-- Texte Castres -->
+                <div class="commune-text-block">
+                    <h3>Castres</h3>
+                    <p>
+                        Castres (42 000 habitants, 2ᵉ agglomération du Tarn) présente des ICU marqués avec des écarts 
+                        pouvant atteindre <strong>+5°C</strong> entre le centre-ville et les zones rurales périphériques. 
+                        La densité du tissu urbain historique (rues étroites, forte minéralisation) et l'activité industrielle 
+                        (surfaces imperméabilisées, rejets thermiques) contribuent à l'intensification du phénomène.
+                    </p>
+                    <p>
+                        <strong>Zones critiques :</strong> Le centre-ville médiéval et les quartiers résidentiels densément 
+                        bâtis (>60% d'imperméabilisation) concentrent les températures les plus élevées. Les axes de fraîcheur 
+                        identifiés (Agout, espaces verts existants) constituent des leviers d'action prioritaires pour les 
+                        stratégies d'adaptation : renaturation des berges, désimperméabilisation ciblée, végétalisation des 
+                        cours d'écoles.
+                    </p>
+                </div>
+
+                <!-- Texte Albi -->
+                <div class="commune-text-block">
+                    <h3>Albi</h3>
+                    <p>
+                        Albi (51 000 habitants, préfecture du Tarn) affiche des ICU prononcés avec des températures maximales 
+                        dépassant <strong>+5,5°C</strong> dans le centre historique classé UNESCO. La brique rouge caractéristique 
+                        de l'architecture albigeoise présente une forte absorption thermique diurne et une réémission nocturne, 
+                        limitant le rafraîchissement urbain.
+                    </p>
+                    <p>
+                        <strong>Contrastes thermiques :</strong> L'analyse révèle des gradients thermiques significatifs entre 
+                        le cœur urbain minéral et les espaces végétalisés périphériques (parcs, jardins familiaux, coteaux du Tarn). 
+                        Ces différences, pouvant atteindre plusieurs degrés, soulignent l'efficacité de la végétation comme solution 
+                        d'atténuation et justifient les projets de trame verte urbaine.
+                    </p>
+                </div>
+
+                <!-- Texte Puylaurens -->
+                <div class="commune-text-block">
+                    <h3>Puylaurens</h3>
+                    <p>
+                        Puylaurens (4 500 habitants) représente un cas d'étude intéressant de ville moyenne à forte composante 
+                        rurale. Malgré une taille modeste et une végétalisation importante, la commune présente des ICU localisés 
+                        dans son centre historique, illustrant que le phénomène affecte également 
+                        les petites villes.
+                    </p>
+                    <p>
+                        <strong>Enseignements :</strong> Cette analyse démontre que la présence d'espaces végétalisés abondants 
+                        en périphérie n'élimine pas les surchauffes ponctuelles dans les noyaux urbains denses. Elle permet 
+                        d'identifier des solutions d'adaptation adaptées aux villes moyennes : préservation des îlots de fraîcheur 
+                        existants, végétalisation des placettes minérales, gestion différenciée des espaces verts publics.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION VULNÉRABILITÉ DES POPULATIONS -->
+        <section class="temperature-section">
+            <h2 class="section-title">Vulnérabilité des Populations face aux Îlots de Chaleur</h2>
+            
+            <!-- Phrase d'introduction au-dessus des cartes -->
+            <div class="temperature-intro" style="margin-bottom: 40px;">
+                <p>
+                    Le croisement des données d'îlots de chaleur avec les indicateurs de vulnérabilité démographique 
+                    permet d'identifier les zones où les populations les plus fragiles sont exposées aux températures 
+                    les plus élevées. Cette analyse spatiale révèle les secteurs prioritaires nécessitant des actions 
+                    d'adaptation climatique urgentes.
+                </p>
+            </div>
+            
+            <!-- Les trois cartes de vulnérabilité alignées -->
+            <div class="trois-communes-maps">
+                <!-- Carte Castres Vulnérabilité -->
+                <div class="map-container">
+                    <div class="map-header">Castres - Vulnérabilité</div>
+                    <div class="map-wrapper" id="map-vuln-castres"></div>
+                </div>
+
+                <!-- Carte Albi Vulnérabilité -->
+                <div class="map-container">
+                    <div class="map-header">Albi - Vulnérabilité</div>
+                    <div class="map-wrapper" id="map-vuln-albi"></div>
+                </div>
+
+                <!-- Carte Puylaurens Vulnérabilité -->
+                <div class="map-container">
+                    <div class="map-header">Puylaurens - Vulnérabilité</div>
+                    <div class="map-wrapper" id="map-vuln-puylaurens"></div>
+                </div>
+            </div>
+
+            <!-- Texte introductif en dessous -->
+            <div class="temperature-intro" style="margin-top: 40px;">
+                <p>
+                    La vulnérabilité des populations face aux îlots de chaleur urbains résulte du croisement 
+                    entre l'intensité des phénomènes thermiques et la sensibilité des populations exposées. 
+                    Cette analyse combine les données d'îlots de chaleur avec les indicateurs démographiques 
+                    de vulnérabilité (populations jeunes et âgées) pour identifier les zones impactées par le réchauffent urbain
+                </p>
+                <p>
+                    Les cartographies présentées révèlent les secteurs où se concentrent à la fois des 
+                    températures élevées et des populations vulnérables. Ces zones constituent des priorités 
+                    absolues pour la mise en œuvre de mesures d'adaptation climatique : végétalisation, 
+                    création d'îlots de fraîcheur, sensibilisation et accompagnement des populations les 
+                    plus fragiles lors des épisodes caniculaires.
+                </p>
+                <p>
+                    <strong>Priorité 1 (risque très élevé) :</strong> Création immédiate d'îlots de fraîcheur (espaces climatisés 
+                    accessibles), distribution de kits canicule, renforcement des dispositifs d'alerte.<br>
+                    <strong>Priorité 2 (risque élevé) :</strong> Végétalisation accélérée (plantations d'alignement, toitures 
+                    végétalisées), désimperméabilisation des cours d'écoles et EHPAD.<br>
+                    <strong>Priorité 3 (risque modéré) :</strong> Actions préventives à moyen terme (renaturation urbaine, 
+                    sensibilisation des populations, aménagements bioclimatiques).
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION CARTE INTERACTIVE FINALE -->
+        <section class="carte-interactive-section">
+            <h2 class="section-title">Carte Interactive - Vue d'Ensemble</h2>
+            
+            <!-- Texte introductif -->
+            <div class="temperature-intro" style="margin-bottom: 30px;">
+                <p>
+                    Cette carte interactive permet de visualiser et de croiser l'ensemble des données collectées 
+                    sur le département du Tarn. Utilisez le contrôle des couches en haut à droite pour afficher 
+                    ou masquer les différentes informations : limites communales, îlots de chaleur, populations 
+                    vulnérables, températures moyennes et zones de risque. La superposition de ces données permet 
+                    une analyse territoriale complète et facilite l'identification des secteurs sensibles.
+                </p>
+            </div>
+
+            <!-- Grande carte interactive -->
+            <div class="carte-interactive-container">
+                <div id="map-interactive"></div>
             </div>
         </section>
 
         <!-- Pied de page -->
         <footer>
-            <p>&copy; 2024 - Étude des Îlots de Chaleur Urbains dans le Tarn | Données OpenStreetMap & INSEE</p>
-            <p>Achour Maria, Delaperche Lucie, Djouadi Pablo, Nougier Jeremie</p>
+            <p>&copy; 2026 - Étude des Îlots de Chaleur Urbains dans le Tarn | Données OpenStreetMap, Esri & INSEE</p>
+            <p>Réalisation : Achour Maria, Delaperche Lucie, Djouadi Pablo, Nougier Jeremie - Master 1 SIGMA</p>
+            <p>Commanditaire : BAWSALA (EI Hanan JEMMAL). Dans le cadre du développement de ses services.</p>
         </footer>
     </div>
 
     <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <!-- Fichiers de données - À placer dans le même dossier -->
+    <script src="https://unpkg.com/leaflet.fullscreen@2.4.0/Control.FullScreen.js"></script>
+
+    <!-- Fichiers de données -->
     <script src="icu_communes_0.js"></script>
     <script src="icu_pop_insee_stat_014.js"></script>
     <script src="vue_temperature_moyenne_communes_0.js"></script>
+    <script src="risquealbi_1.js"></script>
+    <script src="risquecastres_1.js"></script>
+    <script src="risquepuylaurens_1.js"></script>
+    <script src="ICU_MODELISE_castresICU_modelise_0.js"></script>
+    <script src="ICU_MODELISE_albiICU_modelise_0.js"></script>
+    <script src="ICU_MODELISE_puylaurensICU_modelise_0.js"></script>
     
     <script>
         // ==================== CARTE 1 : ZONE D'ÉTUDE ====================
@@ -392,10 +827,11 @@
         if (typeof json_icu_communes_0 !== 'undefined') {
             const communesLayer = L.geoJson(json_icu_communes_0, {
                 style: {
-                    color: '#2c3e50',
-                    weight: 2,
-                    fillColor: 'rgba(141,90,153,0.1)',
-                    fillOpacity: 0.3
+                    color: '#2c3e50',  
+                    weight: 0.5,
+                    fillColor: '#f4e4c1', 
+                    fillOpacity: 0.25,
+                    fill: true
                 },
                 onEachFeature: function(feature, layer) {
                     if (feature.properties['nom']) {
@@ -552,14 +988,21 @@
         mapPop0014.getPane('pane_pop0014').style.zIndex = 400;
 
         // Ajouter la couche de population 0-14 ans
+        let pop0014Data;
         if (typeof json_icu_pop_insee_stat_0 !== 'undefined') {
-            const pop0014Layer = L.geoJson(json_icu_pop_insee_stat_0, {
+            pop0014Data = json_icu_pop_insee_stat_0;
+        } else if (typeof json_icu_pop_insee_stat_014 !== 'undefined') {
+            pop0014Data = json_icu_pop_insee_stat_014;
+        }
+
+        if (pop0014Data) {
+            const pop0014Layer = L.geoJson(pop0014Data, {
                 style: stylePop0014,
                 onEachFeature: function(feature, layer) {
                     let popupContent = '<table style="width:100%; border-collapse: collapse;">';
                     
                     popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">Carreau ' + 
-                                    (feature.properties['id_carreau_1km'] || feature.properties['id']) + '</td></tr>';
+                                    (feature.properties['id_carreau_1km'] || feature.properties['id'] || '') + '</td></tr>';
                     
                     if (feature.properties['pop']) {
                         popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population totale</strong></td><td style="padding:5px;">' + 
@@ -741,14 +1184,14 @@
         mapPopulation.getPane('pane_population').style.zIndex = 400;
 
         // Ajouter la couche de population
-        if (typeof json_icu_pop_insee_stat_0 !== 'undefined') {
-            const populationLayer = L.geoJson(json_icu_pop_insee_stat_0, {
+        if (pop0014Data) {
+            const populationLayer = L.geoJson(pop0014Data, {
                 style: stylePopulation,
                 onEachFeature: function(feature, layer) {
                     let popupContent = '<table style="width:100%; border-collapse: collapse;">';
                     
                     popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">Carreau ' + 
-                                    (feature.properties['id_carreau_1km'] || feature.properties['id']) + '</td></tr>';
+                                    (feature.properties['id_carreau_1km'] || feature.properties['id'] || '') + '</td></tr>';
                     
                     if (feature.properties['pop']) {
                         popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population totale</strong></td><td style="padding:5px;">' + 
@@ -920,22 +1363,540 @@
         
         legend.addTo(mapTempCommune);
 
-        // ==================== CARTES DES TROIS COMMUNES ====================
-        
-        // CARTE COMMUNE 1 (vide pour l'instant)
+        // ==================== FOCUS SUR TROIS COMMUNES ====================
+        console.log("Initialisation des cartes de focus sur trois communes...");
+
+        // ==================== CARTE CASTRES (ICU) ====================
         const mapCommune1 = L.map('map-commune1', {
             zoomControl: true,
             maxZoom: 28,
+            minZoom: 1,
+            scrollWheelZoom: true,
+            dragging: true,
+            touchZoom: true,
+            doubleClickZoom: true,
+            boxZoom: true,
+            keyboard: true
+        }).setView([43.6045, 2.2405], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18,
+            minZoom: 10
+        }).addTo(mapCommune1);
+
+        // Fonction de style pour ICU Castres (basée sur ICU_predite)
+        function styleICUCastres(feature) {
+            const icuPredite = feature.properties['ICU_predite'];
+            const baseStyle = {
+                pane: 'pane_icu_castres',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.75,
+                interactive: true
+            };
+            
+            if (icuPredite === undefined || icuPredite === null || isNaN(parseFloat(icuPredite))) {
+                return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+            }
+            
+            const valeur = parseFloat(icuPredite);
+            
+            if (valeur >= 0.60 && valeur < 2.49) return { ...baseStyle, fillColor: 'rgba(43,131,186,1.0)' };
+            if (valeur >= 2.49 && valeur < 4.01) return { ...baseStyle, fillColor: 'rgba(171,221,164,1.0)' };
+            if (valeur >= 4.01 && valeur < 4.48) return { ...baseStyle, fillColor: 'rgba(255,255,191,1.0)' };
+            if (valeur >= 4.48 && valeur < 6.18) return { ...baseStyle, fillColor: 'rgba(253,174,97,1.0)' };
+            if (valeur >= 6.18) return { ...baseStyle, fillColor: 'rgba(215,25,28,1.0)' };
+        }
+
+        // Créer le pane
+        mapCommune1.createPane('pane_icu_castres');
+        mapCommune1.getPane('pane_icu_castres').style.zIndex = 400;
+
+        // Ajouter la couche ICU Castres
+        if (typeof json_ICU_MODELISE_castresICU_modelise_0 !== 'undefined') {
+            const icuCastresLayer = L.geoJson(json_ICU_MODELISE_castresICU_modelise_0, {
+                style: styleICUCastres,
+                onEachFeature: function(feature, layer) {
+                    let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+                    popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">ICU Castres</td></tr>';
+                    
+                    if (feature.properties['ICU_predite'] !== undefined) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>ICU prédite (température ressentie supplémentaire par rapport à la normal)</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['ICU_predite'].toFixed(2) + '°C</td></tr>';
+                    }
+                    if (feature.properties['ICU_pred_classe']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Classe ICU</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['ICU_pred_classe'] + '</td></tr>';
+                    }
+                    if (feature.properties['pop'] !== undefined) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop']) + ' hab.</td></tr>';
+                    }
+                    
+                    popupContent += '</table>';
+                    layer.bindPopup(popupContent, { maxHeight: 400 });
+                }
+            }).addTo(mapCommune1);
+            mapCommune1.fitBounds(icuCastresLayer.getBounds());
+        }
+
+        // Légende pour Castres
+        const legendCastres = L.control({ position: 'bottomright' });
+        legendCastres.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '5px';
+            
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">ICU Prédite(°C)</h4>';
+            
+            const categories = [
+            { label: '6.18 - 7.26 (Très élevé)', color: 'rgba(215,25,28,1.0)' },
+            { label: '4.48 - 6.18 (Élevé)', color: 'rgba(253,174,97,1.0)' },
+            { label: '4.01 - 4.48 (Moyen)', color: 'rgba(255,255,191,1.0)' },
+            { label: '2.49 - 4.01 (Faible)', color: 'rgba(171,221,164,1.0)' },
+            { label: '0.60 - 2.49 (Très faible)', color: 'rgba(43,131,186,1.0)' }
+        ];
+            
+            categories.forEach(cat => {
+                div.innerHTML += 
+                    '<div style="display:flex; align-items:center; margin:5px 0; font-size:0.9em;">' +
+                    '<div style="width:30px; height:20px; background:' + cat.color + '; margin-right:10px; border:1px solid #232323;"></div>' +
+                    '<span>' + cat.label + '</span>' +
+                    '</div>';
+            });
+            
+            return div;
+        };
+        legendCastres.addTo(mapCommune1);
+
+        // ==================== CARTE ALBI (ICU) ====================
+        const mapAlbi = L.map('map-albi', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1,
+            scrollWheelZoom: true,
+            dragging: true,
+            touchZoom: true,
+            doubleClickZoom: true,
+            boxZoom: true,
+            keyboard: true
+        }).setView([43.9288, 2.1318], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18,
+            minZoom: 10
+        }).addTo(mapAlbi);
+
+        // Fonction de style pour ICU Albi
+        function styleICUAlbi(feature) {
+            const icuPredite = feature.properties['ICU_predite'];
+            const baseStyle = {
+                pane: 'pane_icu_albi',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.75,
+                interactive: true
+            };
+            
+            // Vérification stricte de la valeur
+            if (icuPredite === undefined || icuPredite === null || isNaN(parseFloat(icuPredite))) {
+                return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+            }
+            
+            const valeur = parseFloat(icuPredite);
+            
+            if (valeur >= 0.60 && valeur < 2.49) return { ...baseStyle, fillColor: 'rgba(43,131,186,1.0)' };
+            if (valeur >= 2.49 && valeur < 4.01) return { ...baseStyle, fillColor: 'rgba(171,221,164,1.0)' };
+            if (valeur >= 4.01 && valeur < 4.48) return { ...baseStyle, fillColor: 'rgba(255,255,191,1.0)' };
+            if (valeur >= 4.48 && valeur < 6.18) return { ...baseStyle, fillColor: 'rgba(253,174,97,1.0)' };
+            if (valeur >= 6.18) return { ...baseStyle, fillColor: 'rgba(215,25,28,1.0)' };
+        }
+
+        mapAlbi.createPane('pane_icu_albi');
+        mapAlbi.getPane('pane_icu_albi').style.zIndex = 400;
+
+        if (typeof json_ICU_MODELISE_albiICU_modelise_0 !== 'undefined') {
+            const icuAlbiLayer = L.geoJson(json_ICU_MODELISE_albiICU_modelise_0, {
+                style: styleICUAlbi,
+                onEachFeature: function(feature, layer) {
+                    let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+                    popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">ICU Albi</td></tr>';
+                    
+                    if (feature.properties['ICU_predite'] !== undefined) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>ICU prédite (température ressentie supplémentaire par rapport à la normal)</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['ICU_predite'].toFixed(2) + '°C</td></tr>';
+                    }
+                    if (feature.properties['ICU_pred_classe']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Classe ICU</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['ICU_pred_classe'] + '</td></tr>';
+                    }
+                    if (feature.properties['pop'] !== undefined) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop']) + ' hab.</td></tr>';
+                    }
+                    
+                    popupContent += '</table>';
+                    layer.bindPopup(popupContent, { maxHeight: 400 });
+                }
+            }).addTo(mapAlbi);
+            mapAlbi.fitBounds(icuAlbiLayer.getBounds());
+        }
+
+        // Légende pour Albi
+        const legendAlbi = L.control({ position: 'bottomright' });
+        legendAlbi.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '5px';
+            
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">ICU Prédite (°C)</h4>';
+            
+            const categories = [
+            { label: '6.18 - 7.26 (Très élevé)', color: 'rgba(215,25,28,1.0)' },
+            { label: '4.48 - 6.18 (Élevé)', color: 'rgba(253,174,97,1.0)' },
+            { label: '4.01 - 4.48 (Moyen)', color: 'rgba(255,255,191,1.0)' },
+            { label: '2.49 - 4.01 (Faible)', color: 'rgba(171,221,164,1.0)' },
+            { label: '0.60 - 2.49 (Très faible)', color: 'rgba(43,131,186,1.0)' }
+        ];
+            
+            categories.forEach(cat => {
+                div.innerHTML += 
+                    '<div style="display:flex; align-items:center; margin:5px 0; font-size:0.9em;">' +
+                    '<div style="width:30px; height:20px; background:' + cat.color + '; margin-right:10px; border:1px solid #232323;"></div>' +
+                    '<span>' + cat.label + '</span>' +
+                    '</div>';
+            });
+            
+            return div;
+        };
+        legendAlbi.addTo(mapAlbi);
+        
+
+        // ==================== CARTE PUYLAURENS (ICU) ====================
+        const mapCommune3 = L.map('map-commune3', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1,
+            scrollWheelZoom: true,
+            dragging: true,
+            touchZoom: true,
+            doubleClickZoom: true,
+            boxZoom: true,
+            keyboard: true
+        }).setView([43.5697, 1.9823], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18,
+            minZoom: 10
+        }).addTo(mapCommune3);
+
+        // Fonction de style pour ICU Puylaurens
+       function styleICUPuylaurens(feature) {
+    const icuPredite = feature.properties['ICU_predite'];
+            const baseStyle = {
+                pane: 'pane_icu_puylaurens',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.75,
+                interactive: true
+            };
+            
+            if (icuPredite === undefined || icuPredite === null || isNaN(parseFloat(icuPredite))) {
+                return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+            }
+            
+            const valeur = parseFloat(icuPredite);
+            
+            if (valeur >= 0.60 && valeur < 2.49) return { ...baseStyle, fillColor: 'rgba(43,131,186,1.0)' };
+            if (valeur >= 2.49 && valeur < 4.01) return { ...baseStyle, fillColor: 'rgba(171,221,164,1.0)' };
+            if (valeur >= 4.01 && valeur < 4.48) return { ...baseStyle, fillColor: 'rgba(255,255,191,1.0)' };
+            if (valeur >= 4.48 && valeur < 6.18) return { ...baseStyle, fillColor: 'rgba(253,174,97,1.0)' };
+            if (valeur >= 6.18) return { ...baseStyle, fillColor: 'rgba(215,25,28,1.0)' };
+        }
+
+        mapCommune3.createPane('pane_icu_puylaurens');
+        mapCommune3.getPane('pane_icu_puylaurens').style.zIndex = 400;
+
+        if (typeof json_ICU_MODELISE_puylaurensICU_modelise_0 !== 'undefined') {
+            const icuPuylaurensLayer = L.geoJson(json_ICU_MODELISE_puylaurensICU_modelise_0, {
+                style: styleICUPuylaurens,
+                onEachFeature: function(feature, layer) {
+                    let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+                    popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">ICU Puylaurens</td></tr>';
+                    
+                    if (feature.properties['ICU_predite'] !== undefined) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>ICU prédite (température ressentie supplémentaire par rapport à la normal)</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['ICU_predite'].toFixed(2) + '°C</td></tr>';
+                    }
+                    if (feature.properties['ICU_pred_classe']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Classe ICU</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['ICU_pred_classe'] + '</td></tr>';
+                    }
+                    if (feature.properties['pop'] !== undefined) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop']) + ' hab.</td></tr>';
+                    }
+                    
+                    popupContent += '</table>';
+                    layer.bindPopup(popupContent, { maxHeight: 400 });
+                }
+            }).addTo(mapCommune3);
+            mapCommune3.fitBounds(icuPuylaurensLayer.getBounds());
+        }
+
+        // Légende pour Puylaurens
+        const legendPuylaurens = L.control({ position: 'bottomright' });
+        legendPuylaurens.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '5px';
+            
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">ICU Prédite (°C)</h4>';
+            
+            const categories = [
+            { label: '6.18 - 7.26 (Très élevé)', color: 'rgba(215,25,28,1.0)' },
+            { label: '4.48 - 6.18 (Élevé)', color: 'rgba(253,174,97,1.0)' },
+            { label: '4.01 - 4.48 (Moyen)', color: 'rgba(255,255,191,1.0)' },
+            { label: '2.49 - 4.01 (Faible)', color: 'rgba(171,221,164,1.0)' },
+            { label: '0.60 - 2.49 (Très faible)', color: 'rgba(43,131,186,1.0)' }
+        ];
+            
+            categories.forEach(cat => {
+                div.innerHTML += 
+                    '<div style="display:flex; align-items:center; margin:5px 0; font-size:0.9em;">' +
+                    '<div style="width:30px; height:20px; background:' + cat.color + '; margin-right:10px; border:1px solid #232323;"></div>' +
+                    '<span>' + cat.label + '</span>' +
+                    '</div>';
+            });
+            
+            return div;
+        };
+        legendPuylaurens.addTo(mapCommune3);
+
+        // ==================== CARTE 5 : VULNÉRABILITÉ ====================
+
+        function styleVulnerabilite(feature) {
+            const risqueScore = feature.properties['risque_score'];
+            
+            // 1.00 - 1.00 : Vert foncé (Très faible)
+            if (risqueScore >= 1.000000 && risqueScore <= 1.000000) {
+                return {
+                    pane: 'pane_vulnerabilite',
+                    opacity: 1,
+                    color: 'rgba(35,35,35,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1.0,
+                    fill: true,
+                    fillOpacity: 0.7,
+                    fillColor: 'rgba(0,128,0,1.0)', // Vert foncé
+                    interactive: true
+                };
+            }
+            
+            // 1.00 - 1.50 : Vert clair (Faible)
+            if (risqueScore > 1.000000 && risqueScore <= 1.500000) {
+                return {
+                    pane: 'pane_vulnerabilite',
+                    opacity: 1,
+                    color: 'rgba(35,35,35,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1.0,
+                    fill: true,
+                    fillOpacity: 0.7,
+                    fillColor: 'rgba(144,238,144,1.0)', // Vert clair (lightgreen)
+                    interactive: true
+                };
+            }
+            
+            // 1.50 - 2.00 : Jaune (Moyen)
+            if (risqueScore > 1.500000 && risqueScore <= 2.000000) {
+                return {
+                    pane: 'pane_vulnerabilite',
+                    opacity: 1,
+                    color: 'rgba(35,35,35,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1.0,
+                    fill: true,
+                    fillOpacity: 0.7,
+                    fillColor: 'rgba(255,255,0,1.0)', // Jaune
+                    interactive: true
+                };
+            }
+            
+            // 2.00 - 2.50 : Orange (Élevé)
+            if (risqueScore > 2.000000 && risqueScore <= 2.500000) {
+                return {
+                    pane: 'pane_vulnerabilite',
+                    opacity: 1,
+                    color: 'rgba(35,35,35,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1.0,
+                    fill: true,
+                    fillOpacity: 0.7,
+                    fillColor: 'rgba(255,165,0,1.0)', // Orange
+                    interactive: true
+                };
+            }
+            
+            // 2.50 - 3.00 : Rouge (Très élevé)
+            if (risqueScore > 2.500000 && risqueScore <= 3.000000) {
+                return {
+                    pane: 'pane_vulnerabilite',
+                    opacity: 1,
+                    color: 'rgba(35,35,35,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1.0,
+                    fill: true,
+                    fillOpacity: 0.7,
+                    fillColor: 'rgba(255,0,0,1.0)', // Rouge
+                    interactive: true
+                };
+            }
+            
+            // Valeur par défaut (gris)
+            return {
+                pane: 'pane_vulnerabilite',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.5,
+                fillColor: 'rgba(200,200,200,1.0)',
+                interactive: true
+            };
+        }
+
+        // Fonction pour créer le popup de vulnérabilité
+        function createVulnPopup(feature) {
+            let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+            
+            popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">Informations</td></tr>';
+            
+            if (feature.properties['ICU_predite'] !== undefined) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>ICU prédite (température ressentie supplémentaire par rapport à la normal)</strong></td><td style="padding:5px;">' + 
+                                feature.properties['ICU_predite'].toFixed(2) + '°C</td></tr>';
+            }
+            if (feature.properties['ICU_classe_calc']) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Classe ICU</strong></td><td style="padding:5px;">' + 
+                                feature.properties['ICU_classe_calc'] + '</td></tr>';
+            }
+            if (feature.properties['vuln_index'] !== undefined) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Indice vulnérabilité</strong></td><td style="padding:5px;">' + 
+                                feature.properties['vuln_index'].toFixed(2) + '</td></tr>';
+            }
+            if (feature.properties['vuln_classe']) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Classe vulnérabilité</strong></td><td style="padding:5px;">' + 
+                                feature.properties['vuln_classe'] + '</td></tr>';
+            }
+            if (feature.properties['risque_score'] !== undefined) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Score risque</strong></td><td style="padding:5px;">' + 
+                                feature.properties['risque_score'].toFixed(2) + '</td></tr>';
+            }
+            if (feature.properties['risque_classe']) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Classe risque</strong></td><td style="padding:5px;">' + 
+                                feature.properties['risque_classe'] + '</td></tr>';
+            }
+            if (feature.properties['priorite']) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Priorité</strong></td><td style="padding:5px;">' + 
+                                feature.properties['priorite'] + '</td></tr>';
+            }
+            
+            popupContent += '</table>';
+            return popupContent;
+        }
+
+        // CARTE VULNÉRABILITÉ CASTRES
+        const mapVulnCastres = L.map('map-vuln-castres', {
+            zoomControl: true,
+            maxZoom: 28,
             minZoom: 1
-        }).setView([43.78, 2.13], 13);
+        }).setView([43.6045, 2.2405], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 18
-        }).addTo(mapCommune1);
+        }).addTo(mapVulnCastres);
 
-        // CARTE ALBI (au centre avec l'image ICU)
-        const mapAlbi = L.map('map-albi', {
+        mapVulnCastres.createPane('pane_vulnerabilite');
+        mapVulnCastres.getPane('pane_vulnerabilite').style.zIndex = 401;
+
+        if (typeof json_risquecastres_1 !== 'undefined') {
+            const vulnCastresLayer = L.geoJson(json_risquecastres_1, {
+                style: styleVulnerabilite,
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(createVulnPopup(feature), { maxHeight: 400 });
+                }
+            }).addTo(mapVulnCastres);
+            mapVulnCastres.fitBounds(vulnCastresLayer.getBounds());
+        }
+
+        // ==================== LÉGENDE POUR CASTRES ====================
+        const legendVulnCastres = L.control({ position: 'bottomright' });
+        legendVulnCastres.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '5px';
+            
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Score de Risque</h4>';
+            
+            const categories = [
+                { label: '2.5 - 3.0 (Très élevé)', color: 'rgba(255,0,0,0.7)' },        // Rouge
+                { label: '2.0 - 2.5 (Élevé)', color: 'rgba(255,165,0,0.7)' },           // Orange
+                { label: '1.5 - 2.0 (Moyen)', color: 'rgba(255,255,0,0.7)' },           // Jaune
+                { label: '1.0 - 1.5 (Faible)', color: 'rgba(144,238,144,0.7)' },        // Vert clair
+                { label: '1.0 - 1.0 (Très faible)', color: 'rgba(0,128,0,0.7)' }        // Vert foncé
+            ];
+            
+            categories.forEach(cat => {
+                div.innerHTML += 
+                    '<div style="display:flex; align-items:center; margin:5px 0; font-size:0.9em;">' +
+                    '<div style="width:30px; height:20px; background:' + cat.color + '; margin-right:10px; border:1px solid #232323;"></div>' +
+                    '<span>' + cat.label + '</span>' +
+                    '</div>';
+            });
+            
+            return div;
+        };
+        legendVulnCastres.addTo(mapVulnCastres);
+
+        // CARTE VULNÉRABILITÉ ALBI
+        const mapVulnAlbi = L.map('map-vuln-albi', {
             zoomControl: true,
             maxZoom: 28,
             minZoom: 1
@@ -944,68 +1905,1361 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 18
-        }).addTo(mapAlbi);
+        }).addTo(mapVulnAlbi);
 
-        // Ajouter l'image ICU d'Albi
-        var imgBoundsAlbi = [[43.88750753812116, 2.0514430447938317], [43.97003580872248, 2.212183731936459]];
-        var imageOverlayAlbi = L.imageOverlay('ICU_30m_0.png', imgBoundsAlbi, {
-            opacity: 1
-        }).addTo(mapAlbi);
+        mapVulnAlbi.createPane('pane_vulnerabilite');
+        mapVulnAlbi.getPane('pane_vulnerabilite').style.zIndex = 401;
 
-        // Ajuster la vue sur l'image
-        mapAlbi.fitBounds(imgBoundsAlbi);
+        if (typeof json_risquealbi_1 !== 'undefined') {
+            const vulnAlbiLayer = L.geoJson(json_risquealbi_1, {
+                style: styleVulnerabilite,
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(createVulnPopup(feature), { maxHeight: 400 });
+                }
+            }).addTo(mapVulnAlbi);
+            mapVulnAlbi.fitBounds(vulnAlbiLayer.getBounds());
+        }
 
-        // Ajouter une légende pour la carte ICU d'Albi
-        const legendAlbi = L.control({ position: 'bottomright' });
-        
-        legendAlbi.onAdd = function(map) {
+        // ==================== LÉGENDE ALBI ====================
+        const legendVulnAlbi = L.control({ position: 'bottomright' });
+        legendVulnAlbi.onAdd = function(map) {
             const div = L.DomUtil.create('div');
             div.style.background = 'white';
             div.style.padding = '15px';
             div.style.border = '1px solid #ddd';
             div.style.borderRadius = '5px';
             
-            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Température (°C)</h4>';
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Score de Risque</h4>';
             
-            // Gradient de couleurs pour l'échelle de -2 à 16
-            const gradient = 'linear-gradient(to top, ' +
-                'rgb(0, 0, 255) 0%, ' +      // -2°C : Bleu
-                'rgb(0, 255, 255) 12.5%, ' +  // ~0°C : Cyan
-                'rgb(0, 255, 0) 25%, ' +      // ~2°C : Vert
-                'rgb(255, 255, 0) 50%, ' +    // ~7°C : Jaune
-                'rgb(255, 165, 0) 75%, ' +    // ~12°C : Orange
-                'rgb(255, 0, 0) 100%' +       // 16°C : Rouge
-            ')';
+            const categories = [
+                { label: '2.5 - 3.0 (Très élevé)', color: 'rgba(255,0,0,0.7)' },
+                { label: '2.0 - 2.5 (Élevé)', color: 'rgba(255,165,0,0.7)' },
+                { label: '1.5 - 2.0 (Moyen)', color: 'rgba(255,255,0,0.7)' },
+                { label: '1.0 - 1.5 (Faible)', color: 'rgba(144,238,144,0.7)' },
+                { label: '1.0 - 1.0 (Très faible)', color: 'rgba(0,128,0,0.7)' }
+            ];
             
-            div.innerHTML += 
-                '<div style="display:flex; align-items:center; margin-top:10px;">' +
-                '<div style="width:30px; height:150px; background:' + gradient + '; margin-right:10px; border:1px solid #999;"></div>' +
-                '<div style="display:flex; flex-direction:column; justify-content:space-between; height:150px; font-size:0.85em;">' +
-                '<span>16°C</span>' +
-                '<span>12°C</span>' +
-                '<span>7°C</span>' +
-                '<span>2°C</span>' +
-                '<span>0°C</span>' +
-                '<span>-2°C</span>' +
-                '</div>' +
-                '</div>';
+            categories.forEach(cat => {
+                div.innerHTML += 
+                    '<div style="display:flex; align-items:center; margin:5px 0; font-size:0.9em;">' +
+                    '<div style="width:30px; height:20px; background:' + cat.color + '; margin-right:10px; border:1px solid #232323;"></div>' +
+                    '<span>' + cat.label + '</span>' +
+                    '</div>';
+            });
             
             return div;
         };
-        
-        legendAlbi.addTo(mapAlbi);
+        legendVulnAlbi.addTo(mapVulnAlbi);
 
-        // CARTE COMMUNE 3 (vide pour l'instant)
-        const mapCommune3 = L.map('map-commune3', {
+        // CARTE VULNÉRABILITÉ PUYLAURENS
+        const mapVulnPuylaurens = L.map('map-vuln-puylaurens', {
             zoomControl: true,
             maxZoom: 28,
             minZoom: 1
-        }).setView([43.78, 2.13], 13);
+        }).setView([43.5697, 1.9823], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 18
-        }).addTo(mapCommune3);
+        }).addTo(mapVulnPuylaurens);
+
+        mapVulnPuylaurens.createPane('pane_vulnerabilite');
+        mapVulnPuylaurens.getPane('pane_vulnerabilite').style.zIndex = 401;
+
+        if (typeof json_risquepuylaurens_1 !== 'undefined') {
+            const vulnPuylaurensLayer = L.geoJson(json_risquepuylaurens_1, {
+                style: styleVulnerabilite,
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(createVulnPopup(feature), { maxHeight: 400 });
+                }
+            }).addTo(mapVulnPuylaurens);
+            mapVulnPuylaurens.fitBounds(vulnPuylaurensLayer.getBounds());
+        }
+
+        // ==================== LÉGENDE PUYLAURENS ====================
+        const legendVulnPuylaurens = L.control({ position: 'bottomright' });
+        legendVulnPuylaurens.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '5px';
+            
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Score de Risque</h4>';
+            
+            const categories = [
+                { label: '2.5 - 3.0 (Très élevé)', color: 'rgba(255,0,0,0.7)' },
+                { label: '2.0 - 2.5 (Élevé)', color: 'rgba(255,165,0,0.7)' },
+                { label: '1.5 - 2.0 (Moyen)', color: 'rgba(255,255,0,0.7)' },
+                { label: '1.0 - 1.5 (Faible)', color: 'rgba(144,238,144,0.7)' },
+                { label: '1.0 - 1.0 (Très faible)', color: 'rgba(0,128,0,0.7)' }
+            ];
+            
+            categories.forEach(cat => {
+                div.innerHTML += 
+                    '<div style="display:flex; align-items:center; margin:5px 0; font-size:0.9em;">' +
+                    '<div style="width:30px; height:20px; background:' + cat.color + '; margin-right:10px; border:1px solid #232323;"></div>' +
+                    '<span>' + cat.label + '</span>' +
+                    '</div>';
+            });
+            
+            return div;
+        };
+        legendVulnPuylaurens.addTo(mapVulnPuylaurens);
+
+        // ==================== CARTE INTERACTIVE FINALE AVEC FULLSCREEN ET ACCORDÉON ====================
+
+        console.log("Initialisation de la carte interactive...");
+
+        // === CONFIGURATION DES FONDS DE CARTE ===
+        var fondCarteSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: '© Esri'
+        });
+
+        var fondCarteClassique = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        });
+
+        // Créer la carte avec le contrôle fullscreen
+        const mapInteractive = L.map('map-interactive', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1,
+            fullscreenControl: true, // Active le contrôle fullscreen
+            fullscreenControlOptions: {
+                position: 'topleft',
+                title: 'Mode plein écran',
+                titleCancel: 'Quitter le plein écran'
+            }
+        }).setView([43.78, 2.13], 9);
+
+        // Ajouter le fond satellite par défaut
+        fondCarteSatellite.addTo(mapInteractive);
+
+        // ===== COUCHE 1 : LIMITES COMMUNALES =====
+        console.log("Chargement des limites communales...");
+        let communesLayerInteractive = null;
+        if (typeof json_icu_communes_0 !== 'undefined') {
+            console.log("✓ Données communes disponibles");
+            communesLayerInteractive = L.geoJson(json_icu_communes_0, {
+                style: {
+                    color: '#ffffff',
+                    weight: 0.5,
+                    fillColor: '#f4e4c1',
+                    fillOpacity: 0.25,
+                    fill: true
+                },
+                onEachFeature: function(feature, layer) {
+                    if (feature.properties['nom']) {
+                        let popup = '<div style="font-weight:bold; font-size:1.1em; color:#2c3e50;">' + 
+                                    feature.properties['nom'] + '</div>';
+                        if (feature.properties['population']) {
+                            popup += '<div>Population : ' + feature.properties['population'].toLocaleString() + '</div>';
+                        }
+                        layer.bindPopup(popup);
+                    }
+                }
+            });
+            communesLayerInteractive.addTo(mapInteractive);
+            console.log("✓ Couche communes créée et ajoutée à la carte");
+        } else {
+            console.log("✗ Données communes non disponibles");
+        }
+
+        // ===== COUCHE 2 : TEMPÉRATURE MOYENNE PAR COMMUNE =====
+        console.log("Chargement des températures moyennes...");
+        let tempCommuneLayerInteractive = null;
+        if (typeof json_vue_temperature_moyenne_communes_0 !== 'undefined') {
+            console.log("✓ Données température disponibles");
+            tempCommuneLayerInteractive = L.geoJson(json_vue_temperature_moyenne_communes_0, {
+                style: styleTempCommune,
+                onEachFeature: function(feature, layer) {
+                    let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+                    
+                    if (feature.properties['commune']) {
+                        popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">' + 
+                                        feature.properties['commune'] + '</td></tr>';
+                    }
+                    if (feature.properties['temp_moyenne']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Température moyenne</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['temp_moyenne'].toFixed(2) + '°C</td></tr>';
+                    }
+                    if (feature.properties['categorie_temp']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Catégorie</strong></td><td style="padding:5px;">' + 
+                                        feature.properties['categorie_temp'] + '</td></tr>';
+                    }
+                    
+                    popupContent += '</table>';
+                    layer.bindPopup(popupContent, { maxHeight: 400 });
+                }
+            });
+            console.log("✓ Couche température créée (prête pour le contrôle)");
+        } else {
+            console.log("✗ Données température non disponibles");
+        }
+
+        // ===== COUCHE 3 : POPULATION 0-14 ANS =====
+        console.log("Chargement population 0-14 ans...");
+        mapInteractive.createPane('pane_pop0014_interactive');
+        mapInteractive.getPane('pane_pop0014_interactive').style.zIndex = 402;
+
+        function stylePop0014Interactive(feature) {
+            const pop0014 = feature.properties['pop0014'];
+            const baseStyle = {
+                pane: 'pane_pop0014_interactive',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                interactive: true
+            };
+            
+            if (pop0014 >= 0.000000 && pop0014 <= 12.365084) {
+                return { ...baseStyle, fillColor: 'rgba(255,255,255,1.0)' };
+            }
+            if (pop0014 > 12.365084 && pop0014 <= 41.307516) {
+                return { ...baseStyle, fillColor: 'rgba(255,213,213,1.0)' };
+            }
+            if (pop0014 > 41.307516 && pop0014 <= 88.977114) {
+                return { ...baseStyle, fillColor: 'rgba(255,170,170,1.0)' };
+            }
+            if (pop0014 > 88.977114 && pop0014 <= 156.326810) {
+                return { ...baseStyle, fillColor: 'rgba(255,128,128,1.0)' };
+            }
+            if (pop0014 > 156.326810 && pop0014 <= 263.906108) {
+                return { ...baseStyle, fillColor: 'rgba(255,85,85,1.0)' };
+            }
+            if (pop0014 > 263.906108 && pop0014 <= 418.183876) {
+                return { ...baseStyle, fillColor: 'rgba(255,42,42,1.0)' };
+            }
+            if (pop0014 > 418.183876 && pop0014 <= 751.677639) {
+                return { ...baseStyle, fillColor: 'rgba(255,0,0,1.0)' };
+            }
+            
+            return { ...baseStyle, fillOpacity: 0.5, fillColor: 'rgba(200,200,200,1.0)' };
+        }
+
+        let pop0014LayerInteractive = null;
+        if (pop0014Data) {
+            console.log("✓ Utilisation des données de population");
+            pop0014LayerInteractive = L.geoJson(pop0014Data, {
+                style: stylePop0014Interactive,
+                onEachFeature: function(feature, layer) {
+                    let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+                    popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">Carreau ' + 
+                                    (feature.properties['id_carreau_1km'] || feature.properties['id'] || '') + '</td></tr>';
+                    
+                    if (feature.properties['pop']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population totale</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop']) + ' habitants</td></tr>';
+                    }
+                    if (feature.properties['pop0014']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population 0-14 ans</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop0014']) + ' personnes</td></tr>';
+                    }
+                    
+                    popupContent += '</table>';
+                    layer.bindPopup(popupContent, { maxHeight: 400 });
+                }
+            });
+            console.log("✓ Couche pop 0-14 créée (prête pour le contrôle)");
+        }
+
+        // ===== COUCHE 4 : POPULATION 65+ ANS =====
+        console.log("Chargement population 65+ ans...");
+        mapInteractive.createPane('pane_pop65p_interactive');
+        mapInteractive.getPane('pane_pop65p_interactive').style.zIndex = 403;
+
+        function stylePopulationInteractive(feature) {
+            const pop65p = feature.properties['pop65p'];
+            const baseStyle = {
+                pane: 'pane_pop65p_interactive',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.0)',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                interactive: true
+            };
+            
+            if (pop65p >= 0 && pop65p <= 22.935243) {
+                return { ...baseStyle, fillColor: 'rgba(255,255,255,1.0)' };
+            }
+            if (pop65p > 22.935243 && pop65p <= 78.769993) {
+                return { ...baseStyle, fillColor: 'rgba(255,213,213,1.0)' };
+            }
+            if (pop65p > 78.769993 && pop65p <= 181.730734) {
+                return { ...baseStyle, fillColor: 'rgba(255,170,170,1.0)' };
+            }
+            if (pop65p > 181.730734 && pop65p <= 348.738706) {
+                return { ...baseStyle, fillColor: 'rgba(255,128,128,1.0)' };
+            }
+            if (pop65p > 348.738706 && pop65p <= 608.593423) {
+                return { ...baseStyle, fillColor: 'rgba(255,85,85,1.0)' };
+            }
+            if (pop65p > 608.593423 && pop65p <= 852.606524) {
+                return { ...baseStyle, fillColor: 'rgba(255,42,42,1.0)' };
+            }
+            if (pop65p > 852.606524 && pop65p <= 1289.188662) {
+                return { ...baseStyle, fillColor: 'rgba(255,0,0,1.0)' };
+            }
+            
+            return { ...baseStyle, fillOpacity: 0.5, fillColor: 'rgba(200,200,200,1.0)' };
+        }
+
+        let pop65pLayerInteractive = null;
+        if (pop0014Data) {
+            console.log("✓ Utilisation des données de population pour 65+");
+            pop65pLayerInteractive = L.geoJson(pop0014Data, {
+                style: stylePopulationInteractive,
+                onEachFeature: function(feature, layer) {
+                    let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+                    popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">Carreau ' + 
+                                    (feature.properties['id_carreau_1km'] || feature.properties['id'] || '') + '</td></tr>';
+                    
+                    if (feature.properties['pop']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population totale</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop']) + ' habitants</td></tr>';
+                    }
+                    if (feature.properties['pop65p']) {
+                        popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population 65 ans et +</strong></td><td style="padding:5px;">' + 
+                                        Math.round(feature.properties['pop65p']) + ' personnes</td></tr>';
+                    }
+                    
+                    popupContent += '</table>';
+                    layer.bindPopup(popupContent, { maxHeight: 400 });
+                }
+            });
+            console.log("✓ Couche pop 65+ créée (prête pour le contrôle)");
+        }
+
+        // ===== COUCHES DE VULNÉRABILITÉ =====
+        console.log("Chargement des couches de vulnérabilité...");
+
+        mapInteractive.createPane('pane_vuln_albi_interactive');
+        mapInteractive.getPane('pane_vuln_albi_interactive').style.zIndex = 404;
+
+        mapInteractive.createPane('pane_vuln_castres_interactive');
+        mapInteractive.getPane('pane_vuln_castres_interactive').style.zIndex = 405;
+
+        mapInteractive.createPane('pane_vuln_puylaurens_interactive');
+        mapInteractive.getPane('pane_vuln_puylaurens_interactive').style.zIndex = 406;
+
+        function styleVulnerabiliteInteractive(paneName) {
+            return function(feature) {
+                const risqueScore = feature.properties['risque_score'];
+                const baseStyle = {
+                    pane: paneName,
+                    opacity: 1,
+                    color: 'rgba(35,35,35,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1.0,
+                    fill: true,
+                    fillOpacity: 0.7,
+                    interactive: true
+                };
+                
+                if (risqueScore >= 1.000000 && risqueScore <= 1.000000) {
+                    return { ...baseStyle, fillColor: 'rgba(0,128,0,1.0)' };
+                }
+                if (risqueScore > 1.000000 && risqueScore <= 1.500000) {
+                    return { ...baseStyle, fillColor: 'rgba(144,238,144,1.0)' };
+                }
+                if (risqueScore > 1.500000 && risqueScore <= 2.000000) {
+                    return { ...baseStyle, fillColor: 'rgba(255,255,0,1.0)' };
+                }
+                if (risqueScore > 2.000000 && risqueScore <= 2.500000) {
+                    return { ...baseStyle, fillColor: 'rgba(255,165,0,1.0)' };
+                }
+                if (risqueScore > 2.500000 && risqueScore <= 3.000000) {
+                    return { ...baseStyle, fillColor: 'rgba(255,0,0,1.0)' };
+                }
+                
+                return { ...baseStyle, fillOpacity: 0.5, fillColor: 'rgba(200,200,200,1.0)' };
+            };
+        }
+
+        let vulnAlbiLayerInteractive = null;
+        let vulnCastresLayerInteractive = null;
+        let vulnPuylaurensLayerInteractive = null;
+
+        if (typeof json_risquealbi_1 !== 'undefined') {
+            console.log("✓ Données vulnérabilité Albi disponibles");
+            vulnAlbiLayerInteractive = L.geoJson(json_risquealbi_1, {
+                style: styleVulnerabiliteInteractive('pane_vuln_albi_interactive'),
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(createVulnPopup(feature), { maxHeight: 400 });
+                }
+            });
+            console.log("✓ Couche vulnérabilité Albi créée");
+        }
+
+        if (typeof json_risquecastres_1 !== 'undefined') {
+            console.log("✓ Données vulnérabilité Castres disponibles");
+            vulnCastresLayerInteractive = L.geoJson(json_risquecastres_1, {
+                style: styleVulnerabiliteInteractive('pane_vuln_castres_interactive'),
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(createVulnPopup(feature), { maxHeight: 400 });
+                }
+            });
+            console.log("✓ Couche vulnérabilité Castres créée");
+        }
+
+        if (typeof json_risquepuylaurens_1 !== 'undefined') {
+            console.log("✓ Données vulnérabilité Puylaurens disponibles");
+            vulnPuylaurensLayerInteractive = L.geoJson(json_risquepuylaurens_1, {
+                style: styleVulnerabiliteInteractive('pane_vuln_puylaurens_interactive'),
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(createVulnPopup(feature), { maxHeight: 400 });
+                }
+            });
+            console.log("✓ Couche vulnérabilité Puylaurens créée");
+        }
+
+        // ===== CRÉER LES COUCHES ICU =====
+        let icuCastresLayerInteractive = null;
+        let icuAlbiLayerInteractive = null;
+        let icuPuylaurensLayerInteractive = null;
+
+        if (typeof json_ICU_MODELISE_castresICU_modelise_0 !== 'undefined') {
+            console.log("✓ Données ICU Castres disponibles");
+            icuCastresLayerInteractive = L.geoJson(json_ICU_MODELISE_castresICU_modelise_0, {
+                style: styleICUCastresInteractive,
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(createICUPopup(feature), { maxHeight: 400 });
+                }
+            });
+            console.log("✓ Couche ICU Castres créée");
+        }
+
+        if (typeof json_ICU_MODELISE_albiICU_modelise_0 !== 'undefined') {
+            console.log("✓ Données ICU Albi disponibles");
+            icuAlbiLayerInteractive = L.geoJson(json_ICU_MODELISE_albiICU_modelise_0, {
+                style: styleICUAlbiInteractive,
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(createICUPopup(feature), { maxHeight: 400 });
+                }
+            });
+            console.log("✓ Couche ICU Albi créée");
+        }
+
+        if (typeof json_ICU_MODELISE_puylaurensICU_modelise_0 !== 'undefined') {
+            console.log("✓ Données ICU Puylaurens disponibles");
+            icuPuylaurensLayerInteractive = L.geoJson(json_ICU_MODELISE_puylaurensICU_modelise_0, {
+                style: styleICUPuylaurensInteractive,
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(createICUPopup(feature), { maxHeight: 400 });
+                }
+            });
+            console.log("✓ Couche ICU Puylaurens créée");
+        }
+
+        // ===== FONCTIONS DE STYLE ICU POUR CARTE INTERACTIVE =====
+        function styleICUCastresInteractive(feature) {
+            const icuPredite = feature.properties['ICU_predite'];
+            const baseStyle = {
+                pane: 'pane_icu_castres_interactive',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.75,
+                interactive: true
+            };
+            
+            if (icuPredite === undefined || icuPredite === null || isNaN(parseFloat(icuPredite))) {
+                return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+            }
+            
+            const valeur = parseFloat(icuPredite);
+            
+            if (valeur >= 0.60 && valeur < 2.49) return { ...baseStyle, fillColor: 'rgba(43,131,186,1.0)' };
+            if (valeur >= 2.49 && valeur < 4.01) return { ...baseStyle, fillColor: 'rgba(171,221,164,1.0)' };
+            if (valeur >= 4.01 && valeur < 5.4) return { ...baseStyle, fillColor: 'rgba(255,255,191,1.0)' };
+            if (valeur >= 5.4 && valeur < 6.18) return { ...baseStyle, fillColor: 'rgba(253,174,97,1.0)' };
+            if (valeur >= 6.18) return { ...baseStyle, fillColor: 'rgba(215,25,28,1.0)' };
+            
+            return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+        }
+
+        function styleICUAlbiInteractive(feature) {
+            const icuPredite = feature.properties['ICU_predite'];
+            const baseStyle = {
+                pane: 'pane_icu_albi_interactive',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.75,
+                interactive: true
+            };
+            
+            if (icuPredite === undefined || icuPredite === null || isNaN(parseFloat(icuPredite))) {
+                return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+            }
+            
+            const valeur = parseFloat(icuPredite);
+            
+            if (valeur >= 0.60 && valeur < 2.49) return { ...baseStyle, fillColor: 'rgba(43,131,186,1.0)' };
+            if (valeur >= 2.49 && valeur < 4.01) return { ...baseStyle, fillColor: 'rgba(171,221,164,1.0)' };
+            if (valeur >= 4.01 && valeur < 5.4) return { ...baseStyle, fillColor: 'rgba(255,255,191,1.0)' };
+            if (valeur >= 5.4 && valeur < 6.18) return { ...baseStyle, fillColor: 'rgba(253,174,97,1.0)' };
+            if (valeur >= 6.18) return { ...baseStyle, fillColor: 'rgba(215,25,28,1.0)' };
+            
+            return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+        }
+
+        function styleICUPuylaurensInteractive(feature) {
+            const icuPredite = feature.properties['ICU_predite'];
+            const baseStyle = {
+                pane: 'pane_icu_puylaurens_interactive',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.75,
+                interactive: true
+            };
+            
+            if (icuPredite === undefined || icuPredite === null || isNaN(parseFloat(icuPredite))) {
+                return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+            }
+            
+            const valeur = parseFloat(icuPredite);
+            
+            if (valeur >= 0.60 && valeur < 2.49) return { ...baseStyle, fillColor: 'rgba(43,131,186,1.0)' };
+            if (valeur >= 2.49 && valeur < 4.01) return { ...baseStyle, fillColor: 'rgba(171,221,164,1.0)' };
+            if (valeur >= 4.01 && valeur < 5.4) return { ...baseStyle, fillColor: 'rgba(255,255,191,1.0)' };
+            if (valeur >= 5.4 && valeur < 6.18) return { ...baseStyle, fillColor: 'rgba(253,174,97,1.0)' };
+            if (valeur >= 6.18) return { ...baseStyle, fillColor: 'rgba(215,25,28,1.0)' };
+            
+            return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+        }
+
+        // Fonction popup pour ICU
+        function createICUPopup(feature) {
+            let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+            popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">ICU</td></tr>';
+            
+            if (feature.properties['ICU_predite'] !== undefined) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>ICU prédite (température ressentie supplémentaire par rapport à la normal)</strong></td><td style="padding:5px;">' + 
+                                feature.properties['ICU_predite'].toFixed(2) + '°C</td></tr>';
+            }
+            if (feature.properties['ICU_pred_classe']) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Classe ICU</strong></td><td style="padding:5px;">' + 
+                                feature.properties['ICU_pred_classe'] + '</td></tr>';
+            }
+            if (feature.properties['pop'] !== undefined) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population</strong></td><td style="padding:5px;">' + 
+                                Math.round(feature.properties['pop']) + ' hab.</td></tr>';
+            }
+            
+            popupContent += '</table>';
+            return popupContent;
+        }
+
+        // ===== FONCTIONS DE STYLE ICU POUR CARTE INTERACTIVE =====
+        function styleICUCastresInteractive(feature) {
+            const icuPredite = feature.properties['ICU_predite'];
+            const baseStyle = {
+                pane: 'pane_icu_castres_interactive',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.75,
+                interactive: true
+            };
+            
+            if (icuPredite === undefined || icuPredite === null || isNaN(parseFloat(icuPredite))) {
+                return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+            }
+            
+            const valeur = parseFloat(icuPredite);
+            
+            if (valeur >= 0.60 && valeur < 2.49) return { ...baseStyle, fillColor: 'rgba(43,131,186,1.0)' };
+            if (valeur >= 2.49 && valeur < 4.01) return { ...baseStyle, fillColor: 'rgba(171,221,164,1.0)' };
+            if (valeur >= 4.01 && valeur < 5.4) return { ...baseStyle, fillColor: 'rgba(255,255,191,1.0)' };
+            if (valeur >= 5.4 && valeur < 6.18) return { ...baseStyle, fillColor: 'rgba(253,174,97,1.0)' };
+            if (valeur >= 6.18) return { ...baseStyle, fillColor: 'rgba(215,25,28,1.0)' };
+            
+            return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+        }
+
+        function styleICUAlbiInteractive(feature) {
+            const icuPredite = feature.properties['ICU_predite'];
+            const baseStyle = {
+                pane: 'pane_icu_albi_interactive',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.75,
+                interactive: true
+            };
+            
+            if (icuPredite === undefined || icuPredite === null || isNaN(parseFloat(icuPredite))) {
+                return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+            }
+            
+            const valeur = parseFloat(icuPredite);
+            
+            if (valeur >= 0.60 && valeur < 2.49) return { ...baseStyle, fillColor: 'rgba(43,131,186,1.0)' };
+            if (valeur >= 2.49 && valeur < 4.01) return { ...baseStyle, fillColor: 'rgba(171,221,164,1.0)' };
+            if (valeur >= 4.01 && valeur < 5.4) return { ...baseStyle, fillColor: 'rgba(255,255,191,1.0)' };
+            if (valeur >= 5.4 && valeur < 6.18) return { ...baseStyle, fillColor: 'rgba(253,174,97,1.0)' };
+            if (valeur >= 6.18) return { ...baseStyle, fillColor: 'rgba(215,25,28,1.0)' };
+            
+            return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+        }
+
+        function styleICUPuylaurensInteractive(feature) {
+            const icuPredite = feature.properties['ICU_predite'];
+            const baseStyle = {
+                pane: 'pane_icu_puylaurens_interactive',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.75,
+                interactive: true
+            };
+            
+            if (icuPredite === undefined || icuPredite === null || isNaN(parseFloat(icuPredite))) {
+                return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+            }
+            
+            const valeur = parseFloat(icuPredite);
+            
+            if (valeur >= 0.60 && valeur < 2.49) return { ...baseStyle, fillColor: 'rgba(43,131,186,1.0)' };
+            if (valeur >= 2.49 && valeur < 4.01) return { ...baseStyle, fillColor: 'rgba(171,221,164,1.0)' };
+            if (valeur >= 4.01 && valeur < 5.4) return { ...baseStyle, fillColor: 'rgba(255,255,191,1.0)' };
+            if (valeur >= 5.4 && valeur < 6.18) return { ...baseStyle, fillColor: 'rgba(253,174,97,1.0)' };
+            if (valeur >= 6.18) return { ...baseStyle, fillColor: 'rgba(215,25,28,1.0)' };
+            
+            return { ...baseStyle, fillColor: 'rgba(220,220,220,1.0)' };
+        }
+
+        // Fonction popup pour ICU
+        function createICUPopup(feature) {
+            let popupContent = '<table style="width:100%; border-collapse: collapse;">';
+            popupContent += '<tr><td colspan="2" style="font-weight:bold; font-size:1.1em; padding:5px; background:#2c3e50; color:white;">ICU</td></tr>';
+            
+            if (feature.properties['ICU_predite'] !== undefined) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>ICU prédite (température ressentie supplémentaire par rapport à la normal)</strong></td><td style="padding:5px;">' + 
+                                feature.properties['ICU_predite'].toFixed(2) + '°C</td></tr>';
+            }
+            if (feature.properties['ICU_pred_classe']) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Classe ICU</strong></td><td style="padding:5px;">' + 
+                                feature.properties['ICU_pred_classe'] + '</td></tr>';
+            }
+            if (feature.properties['pop'] !== undefined) {
+                popupContent += '<tr><td style="padding:5px; background:#f8f9fa;"><strong>Population</strong></td><td style="padding:5px;">' + 
+                                Math.round(feature.properties['pop']) + ' hab.</td></tr>';
+            }
+            
+            popupContent += '</table>';
+            return popupContent;
+        }
+
+        // ===== COUCHES ICU (ÎLOTS DE CHALEUR) =====
+        console.log("Chargement des couches ICU...");
+
+        mapInteractive.createPane('pane_icu_castres_interactive');
+        mapInteractive.getPane('pane_icu_castres_interactive').style.zIndex = 407;
+
+        mapInteractive.createPane('pane_icu_albi_interactive');
+        mapInteractive.getPane('pane_icu_albi_interactive').style.zIndex = 408;
+
+        mapInteractive.createPane('pane_icu_puylaurens_interactive');
+        mapInteractive.getPane('pane_icu_puylaurens_interactive').style.zIndex = 409;
+
+        // ===== CONTRÔLE DES COUCHES PERSONNALISÉ AVEC ACCORDÉON =====
+        console.log("Création du contrôle des couches avec accordéon...");
+
+        // Créer un contrôle personnalisé
+        const CustomLayerControl = L.Control.extend({
+            options: {
+                position: 'topright'
+            },
+            
+            onAdd: function(map) {
+                const container = L.DomUtil.create('div', 'custom-layer-control leaflet-bar');
+                
+                let html = '<h4>Couches de données</h4>';
+                
+                // ===== SECTION RECHERCHE DE COMMUNE (NOUVEAU) =====
+                html += '<div class="commune-search-section">';
+                html += '<div class="commune-search-title"> Rechercher une commune</div>';
+                html += '<input type="text" id="commune-search-input" class="commune-search-input" placeholder="Ex: Albi, Castres..." oninput="searchCommune(this.value)">';
+                html += '<div id="commune-suggestions" class="commune-suggestions"></div>';
+                html += '<button id="commune-reset-btn" class="commune-reset-btn" onclick="resetCommuneFilter()" disabled>Réinitialiser le filtre</button>';
+                html += '</div>';
+                
+                // Section Fonds de carte (toujours visible)
+                html += '<div class="basemap-section">';
+                html += '<div class="basemap-title">Fonds de carte</div>';
+                html += '<div class="basemap-item">';
+                html += '<input type="radio" name="basemap" id="base-satellite" checked onchange="changeBasemap(\'satellite\')">';
+                html += '<label for="base-satellite">ESRI Satellite</label>';
+                html += '</div>';
+                html += '<div class="basemap-item">';
+                html += '<input type="radio" name="basemap" id="base-osm" onchange="changeBasemap(\'osm\')">';
+                html += '<label for="base-osm">OpenStreetMap</label>';
+                html += '</div>';
+                html += '</div>';
+                
+                // Section Couches avec accordéon
+                html += '<div class="layers-accordion">';
+                html += '<div class="accordion-header" onclick="toggleAccordion()">';
+                html += 'Couches cartographiques';
+                html += '</div>';
+                html += '<div class="accordion-content" id="accordion-layers">';
+                
+                // Toutes les couches dans le même groupe
+                if (communesLayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-communes" checked onchange="toggleLayer(\'communes\')">';
+                    html += '<label for="layer-communes">Limites communales</label>';
+                    html += '</div>';
+                }
+                
+                if (tempCommuneLayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-temp" onchange="toggleLayer(\'temp\')">';
+                    html += '<label for="layer-temp">Température moyenne</label>';
+                    html += '</div>';
+                }
+                
+                if (pop0014LayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-pop0014" onchange="toggleLayer(\'pop0014\')">';
+                    html += '<label for="layer-pop0014">Population 0-14 ans</label>';
+                    html += '</div>';
+                }
+                
+                if (pop65pLayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-pop65p" onchange="toggleLayer(\'pop65p\')">';
+                    html += '<label for="layer-pop65p">Population 65+ ans</label>';
+                    html += '</div>';
+                }
+                
+                if (vulnAlbiLayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-vuln-albi" onchange="toggleLayer(\'vuln-albi\')">';
+                    html += '<label for="layer-vuln-albi">Vulnérabilité Albi</label>';
+                    html += '</div>';
+                }
+                
+                if (vulnCastresLayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-vuln-castres" onchange="toggleLayer(\'vuln-castres\')">';
+                    html += '<label for="layer-vuln-castres">Vulnérabilité Castres</label>';
+                    html += '</div>';
+                }
+                
+                if (vulnPuylaurensLayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-vuln-puylaurens" onchange="toggleLayer(\'vuln-puylaurens\')">';
+                    html += '<label for="layer-vuln-puylaurens">Vulnérabilité Puylaurens</label>';
+                    html += '</div>';
+                }
+
+                if (icuCastresLayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-icu-castres" onchange="toggleLayer(\'icu-castres\')">';
+                    html += '<label for="layer-icu-castres">ICU Castres</label>';
+                    html += '</div>';
+                }
+
+                if (icuAlbiLayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-icu-albi" onchange="toggleLayer(\'icu-albi\')">';
+                    html += '<label for="layer-icu-albi">ICU Albi</label>';
+                    html += '</div>';
+                }
+
+                if (icuPuylaurensLayerInteractive) {
+                    html += '<div class="layer-item">';
+                    html += '<input type="checkbox" id="layer-icu-puylaurens" onchange="toggleLayer(\'icu-puylaurens\')">';
+                    html += '<label for="layer-icu-puylaurens">ICU Puylaurens</label>';
+                    html += '</div>';
+                }
+                
+                html += '</div>'; // Fin accordion-content
+                html += '</div>'; // Fin layers-accordion
+                
+                container.innerHTML = html;
+                
+                // Empêcher la propagation des événements de la carte
+                L.DomEvent.disableClickPropagation(container);
+                L.DomEvent.disableScrollPropagation(container);
+                
+                return container;
+            }
+        });
+
+        mapInteractive.addControl(new CustomLayerControl());
+
+        // ===== VARIABLES GLOBALES POUR LE FILTRE =====
+        let selectedCommune = null;
+        let selectedCommuneGeometry = null;
+        let allCommunes = [];
+
+        // Extraire la liste des communes au chargement
+        if (communesLayerInteractive) {
+            communesLayerInteractive.eachLayer(function(layer) {
+                if (layer.feature && layer.feature.properties && layer.feature.properties.nom) {
+                    allCommunes.push({
+                        nom: layer.feature.properties.nom,
+                        geometry: layer.feature.geometry,
+                        bounds: layer.getBounds()
+                    });
+                }
+            });
+            // Trier par ordre alphabétique
+            allCommunes.sort((a, b) => a.nom.localeCompare(b.nom));
+        }
+
+        // ===== FONCTION DE RECHERCHE DE COMMUNE =====
+        window.searchCommune = function(searchText) {
+            const suggestionsDiv = document.getElementById('commune-suggestions');
+            
+            if (!searchText || searchText.length < 2) {
+                suggestionsDiv.style.display = 'none';
+                return;
+            }
+            
+            // Filtrer les communes qui correspondent
+            const matches = allCommunes.filter(commune => 
+                commune.nom.toLowerCase().includes(searchText.toLowerCase())
+            );
+            
+            if (matches.length === 0) {
+                suggestionsDiv.innerHTML = '<div class="commune-suggestion-item" style="color:#999;">Aucune commune trouvée</div>';
+                suggestionsDiv.style.display = 'block';
+                return;
+            }
+            
+            // Afficher les suggestions
+            let html = '';
+            matches.slice(0, 10).forEach(commune => {
+                html += '<div class="commune-suggestion-item" onclick="selectCommune(\'' + commune.nom + '\')">' + commune.nom + '</div>';
+            });
+            
+            suggestionsDiv.innerHTML = html;
+            suggestionsDiv.style.display = 'block';
+        };
+
+        // ===== FONCTION DE SÉLECTION D'UNE COMMUNE =====
+        window.selectCommune = function(communeName) {
+            const commune = allCommunes.find(c => c.nom === communeName);
+            if (!commune) return;
+            
+            selectedCommune = communeName;
+            selectedCommuneGeometry = commune.geometry;
+            
+            // Mettre à jour l'input
+            document.getElementById('commune-search-input').value = communeName;
+            document.getElementById('commune-suggestions').style.display = 'none';
+            
+            // Activer le bouton reset
+            document.getElementById('commune-reset-btn').disabled = false;
+            
+            // Zoomer sur la commune
+            mapInteractive.fitBounds(commune.bounds, { padding: [50, 50] });
+            
+            // Appliquer le filtre sur toutes les couches actives
+            applyFilterToAllLayers();
+            
+            console.log('✓ Commune sélectionnée :', communeName);
+        };
+
+        // ===== FONCTION DE RÉINITIALISATION =====
+        window.resetCommuneFilter = function() {
+            selectedCommune = null;
+            selectedCommuneGeometry = null;
+            
+            // Réinitialiser l'input
+            document.getElementById('commune-search-input').value = '';
+            document.getElementById('commune-suggestions').style.display = 'none';
+            document.getElementById('commune-reset-btn').disabled = true;
+            
+            // Réafficher toutes les couches normalement
+            applyFilterToAllLayers();
+            
+            // Revenir à la vue d'ensemble
+            if (communesLayerInteractive) {
+                mapInteractive.fitBounds(communesLayerInteractive.getBounds());
+            }
+            
+            console.log('✓ Filtre réinitialisé');
+        };
+
+        // ===== VÉRIFIER SI UNE FEATURE EST DANS LA COMMUNE =====
+        function isFeatureInCommune(layer) {
+            if (!selectedCommuneGeometry || !layer.feature) return false;
+            
+            try {
+                const bounds = layer.getBounds();
+                const center = bounds.getCenter();
+                
+                const communeLayer = L.geoJSON(selectedCommuneGeometry);
+                let isInside = false;
+                
+                communeLayer.eachLayer(function(cLayer) {
+                    if (cLayer.getBounds().contains(center)) {
+                        isInside = true;
+                    }
+                });
+                
+                return isInside;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // ===== FONCTION D'APPLICATION DU FILTRE (VERSION CORRIGÉE) =====
+        function applyFilterToAllLayers() {
+            const layersToFilter = [
+                { 
+                    layer: tempCommuneLayerInteractive, 
+                    name: 'temp',
+                    styleFunc: styleTempCommune
+                },
+                { 
+                    layer: pop0014LayerInteractive, 
+                    name: 'pop0014',
+                    styleFunc: stylePop0014Interactive
+                },
+                { 
+                    layer: pop65pLayerInteractive, 
+                    name: 'pop65p',
+                    styleFunc: stylePopulationInteractive
+                },
+                { 
+                    layer: vulnAlbiLayerInteractive, 
+                    name: 'vuln-albi',
+                    styleFunc: styleVulnerabiliteInteractive('pane_vuln_albi_interactive')
+                },
+                { 
+                    layer: vulnCastresLayerInteractive, 
+                    name: 'vuln-castres',
+                    styleFunc: styleVulnerabiliteInteractive('pane_vuln_castres_interactive')
+                },
+                {   
+                    layer: vulnPuylaurensLayerInteractive, 
+                    name: 'vuln-puylaurens',
+                    styleFunc: styleVulnerabiliteInteractive('pane_vuln_puylaurens_interactive')
+                },
+                { 
+                    layer: icuCastresLayerInteractive, 
+                    name: 'icu-castres',
+                    styleFunc: styleICUCastresInteractive
+                },
+                { 
+                    layer: icuAlbiLayerInteractive, 
+                    name: 'icu-albi',
+                    styleFunc: styleICUAlbiInteractive
+                },
+                { 
+                    layer: icuPuylaurensLayerInteractive, 
+                    name: 'icu-puylaurens',
+                    styleFunc: styleICUPuylaurensInteractive
+                }
+            ];
+            
+            layersToFilter.forEach(item => {
+                if (item.layer && mapInteractive.hasLayer(item.layer)) {
+                    item.layer.eachLayer(function(layer) {
+                        if (selectedCommune) {
+                            const isInCommune = isFeatureInCommune(layer);
+                            const originalStyle = item.styleFunc(layer.feature);
+                            
+                            if (isInCommune) {
+                                layer.setStyle(originalStyle);
+                            } else {
+                                layer.setStyle({ 
+                                    fillOpacity: 0.1, 
+                                    opacity: 0.3 
+                                });
+                            }
+                        } else {
+                            const originalStyle = item.styleFunc(layer.feature);
+                            layer.setStyle(originalStyle);
+                        }
+                    });
+                }
+            });
+            
+            if (communesLayerInteractive && mapInteractive.hasLayer(communesLayerInteractive)) {
+                communesLayerInteractive.eachLayer(function(layer) {
+                    if (selectedCommune && layer.feature.properties.nom === selectedCommune) {
+                        layer.setStyle({ 
+                            color: '#2c3e50',
+                            weight: 3,
+                            fillColor: '#f4e4c1',
+                            fillOpacity: 0.25
+                        });
+                    } else {
+                        layer.setStyle({ 
+                            color: '#ffffff',
+                            weight: 0.5,
+                            fillColor: '#f4e4c1',
+                            fillOpacity: selectedCommune ? 0.05 : 0.25
+                        });
+                    }
+                });
+            }
+        }
+
+        console.log('✓ Système de filtre par commune initialisé avec', allCommunes.length, 'communes');
+
+        // ===== FONCTION TOGGLE ACCORDÉON =====
+        window.toggleAccordion = function() {
+            const content = document.getElementById('accordion-layers');
+            const header = document.querySelector('.accordion-header');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                header.classList.remove('collapsed');
+            } else {
+                content.classList.add('hidden');
+                header.classList.add('collapsed');
+            }
+        };
+
+        // ===== FONCTION CHANGEMENT FOND DE CARTE =====
+        window.changeBasemap = function(type) {
+            if (type === 'satellite') {
+                mapInteractive.removeLayer(fondCarteClassique);
+                mapInteractive.addLayer(fondCarteSatellite);
+            } else {
+                mapInteractive.removeLayer(fondCarteSatellite);
+                mapInteractive.addLayer(fondCarteClassique);
+            }
+        };
+
+        // ===== FONCTION TOGGLE LAYER (VERSION CORRIGÉE) =====
+        window.toggleLayer = function(layerName) {
+            const checkbox = document.getElementById('layer-' + layerName);
+            const isChecked = checkbox.checked;
+            
+            switch(layerName) {
+                case 'communes':
+                    if (communesLayerInteractive) {
+                        if (isChecked) {
+                            mapInteractive.addLayer(communesLayerInteractive);
+                        } else {
+                            mapInteractive.removeLayer(communesLayerInteractive);
+                        }
+                    }
+                    break;
+                case 'temp':
+                    if (tempCommuneLayerInteractive) {
+                        if (isChecked) {
+                            mapInteractive.addLayer(tempCommuneLayerInteractive);
+                            tempCommuneLayerInteractive.eachLayer(function(layer) {
+                                layer.setStyle(styleTempCommune(layer.feature));
+                            });
+                        } else {
+                            mapInteractive.removeLayer(tempCommuneLayerInteractive);
+                        }
+                    }
+                    break;
+                case 'pop0014':
+                    if (pop0014LayerInteractive) {
+                        if (isChecked) {
+                            mapInteractive.addLayer(pop0014LayerInteractive);
+                            pop0014LayerInteractive.eachLayer(function(layer) {
+                                layer.setStyle(stylePop0014Interactive(layer.feature));
+                            });
+                        } else {
+                            mapInteractive.removeLayer(pop0014LayerInteractive);
+                        }
+                    }
+                    break;
+                case 'pop65p':
+                    if (pop65pLayerInteractive) {
+                        if (isChecked) {
+                            mapInteractive.addLayer(pop65pLayerInteractive);
+                            pop65pLayerInteractive.eachLayer(function(layer) {
+                                layer.setStyle(stylePopulationInteractive(layer.feature));
+                            });
+                        } else {
+                            mapInteractive.removeLayer(pop65pLayerInteractive);
+                        }
+                    }
+                    break;
+                case 'vuln-albi':
+                    if (vulnAlbiLayerInteractive) {
+                        if (isChecked) {
+                            mapInteractive.addLayer(vulnAlbiLayerInteractive);
+                            vulnAlbiLayerInteractive.eachLayer(function(layer) {
+                                const styleFunc = styleVulnerabiliteInteractive('pane_vuln_albi_interactive');
+                                layer.setStyle(styleFunc(layer.feature));
+                            });
+                        } else {
+                            mapInteractive.removeLayer(vulnAlbiLayerInteractive);
+                        }
+                    }
+                    break;
+                case 'vuln-castres':
+                    if (vulnCastresLayerInteractive) {
+                        if (isChecked) {
+                            mapInteractive.addLayer(vulnCastresLayerInteractive);
+                            vulnCastresLayerInteractive.eachLayer(function(layer) {
+                                const styleFunc = styleVulnerabiliteInteractive('pane_vuln_castres_interactive');
+                                layer.setStyle(styleFunc(layer.feature));
+                            });
+                        } else {
+                            mapInteractive.removeLayer(vulnCastresLayerInteractive);
+                        }
+                    }
+                    break;
+                case 'vuln-puylaurens':
+                    if (vulnPuylaurensLayerInteractive) {
+                        if (isChecked) {
+                            mapInteractive.addLayer(vulnPuylaurensLayerInteractive);
+                            vulnPuylaurensLayerInteractive.eachLayer(function(layer) {
+                                const styleFunc = styleVulnerabiliteInteractive('pane_vuln_puylaurens_interactive');
+                                layer.setStyle(styleFunc(layer.feature));
+                            });
+                        } else {
+                            mapInteractive.removeLayer(vulnPuylaurensLayerInteractive);
+                        }
+                    }
+                    break;
+                
+                case 'icu-castres':
+                if (icuCastresLayerInteractive) {
+                    if (isChecked) {
+                        mapInteractive.addLayer(icuCastresLayerInteractive);
+                        icuCastresLayerInteractive.eachLayer(function(layer) {
+                            layer.setStyle(styleICUCastresInteractive(layer.feature));
+                        });
+                    } else {
+                        mapInteractive.removeLayer(icuCastresLayerInteractive);
+                    }
+                }
+                break;
+            case 'icu-albi':
+                if (icuAlbiLayerInteractive) {
+                    if (isChecked) {
+                        mapInteractive.addLayer(icuAlbiLayerInteractive);
+                        icuAlbiLayerInteractive.eachLayer(function(layer) {
+                            layer.setStyle(styleICUAlbiInteractive(layer.feature));
+                        });
+                    } else {
+                        mapInteractive.removeLayer(icuAlbiLayerInteractive);
+                    }
+                }
+                break;
+            case 'icu-puylaurens':
+                if (icuPuylaurensLayerInteractive) {
+                    if (isChecked) {
+                        mapInteractive.addLayer(icuPuylaurensLayerInteractive);
+                        icuPuylaurensLayerInteractive.eachLayer(function(layer) {
+                            layer.setStyle(styleICUPuylaurensInteractive(layer.feature));
+                        });
+                    } else {
+                        mapInteractive.removeLayer(icuPuylaurensLayerInteractive);
+                    }
+                }
+                break;
+            case 'icu-castres':
+                if (icuCastresLayerInteractive) {
+                    if (isChecked) {
+                        mapInteractive.addLayer(icuCastresLayerInteractive);
+                        icuCastresLayerInteractive.eachLayer(function(layer) {
+                            layer.setStyle(styleICUCastresInteractive(layer.feature));
+                        });
+                    } else {
+                        mapInteractive.removeLayer(icuCastresLayerInteractive);
+                    }
+                }
+                break;
+            case 'icu-albi':
+                if (icuAlbiLayerInteractive) {
+                    if (isChecked) {
+                        mapInteractive.addLayer(icuAlbiLayerInteractive);
+                        icuAlbiLayerInteractive.eachLayer(function(layer) {
+                            layer.setStyle(styleICUAlbiInteractive(layer.feature));
+                        });
+                    } else {
+                        mapInteractive.removeLayer(icuAlbiLayerInteractive);
+                    }
+                }
+                break;
+            case 'icu-puylaurens':
+                if (icuPuylaurensLayerInteractive) {
+                    if (isChecked) {
+                        mapInteractive.addLayer(icuPuylaurensLayerInteractive);
+                        icuPuylaurensLayerInteractive.eachLayer(function(layer) {
+                            layer.setStyle(styleICUPuylaurensInteractive(layer.feature));
+                        });
+                    } else {
+                        mapInteractive.removeLayer(icuPuylaurensLayerInteractive);
+                    }
+                }
+                break;
+            
+            }
+
+            
+            // Appliquer le filtre si une commune est sélectionnée
+            applyFilterToAllLayers();
+            
+            // Mettre à jour la légende
+            updateLegendInteractive();
+        };
+
+        // ===== LÉGENDE DYNAMIQUE =====
+        const legendInteractive = L.control({ position: 'bottomleft' });
+
+        legendInteractive.onAdd = function(map) {
+            const div = L.DomUtil.create('div');
+            div.id = 'legend-interactive';
+            div.style.background = 'white';
+            div.style.padding = '15px';
+            div.style.border = '2px solid #2c3e50';
+            div.style.borderRadius = '8px';
+            div.style.maxHeight = '70vh';
+            div.style.overflowY = 'auto';
+            div.style.minWidth = '220px';
+            
+            return div;
+        };
+
+        legendInteractive.addTo(mapInteractive);
+
+        function updateLegendInteractive() {
+            const legendDiv = document.getElementById('legend-interactive');
+            if (!legendDiv) return;
+            
+            let html = '<h4 style="margin:0 0 10px 0; font-size:1em; font-weight:600; color:#2c3e50; border-bottom:2px solid #2c3e50; padding-bottom:8px;">Légende</h4>';
+            let hasLayers = false;
+            
+            if (communesLayerInteractive && mapInteractive.hasLayer(communesLayerInteractive)) {
+                hasLayers = true;
+                html += '<div style="margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #ddd;">';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Limites communales</strong>';
+                html += '<div style="width:25px; height:15px; background:rgba(244,228,193,0.25); margin-right:8px; border:1px solid #ffffff;"></div>';
+                html += '</div>';
+            }
+            
+            if (tempCommuneLayerInteractive && mapInteractive.hasLayer(tempCommuneLayerInteractive)) {
+                hasLayers = true;
+                html += '<div style="margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #ddd;">';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Température</strong>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:#e31a1c; margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">≥28°C</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:#ff7f00; margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">26-28°C</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:#b2df8a; margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">24-26°C</span></div>';
+                html += '</div>';
+            }
+            
+            if (pop0014LayerInteractive && mapInteractive.hasLayer(pop0014LayerInteractive)) {
+                hasLayers = true;
+                html += '<div style="margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #ddd;">';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Pop. 0-14 ans</strong>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,0,0,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">418 - 752</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,85,85,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">156 - 263</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,170,170,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">41 - 88</span></div>';
+                html += '</div>';
+            }
+            
+            if (pop65pLayerInteractive && mapInteractive.hasLayer(pop65pLayerInteractive)) {
+                hasLayers = true;
+                html += '<div style="margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #ddd;">';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Pop. 65+ ans</strong>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,0,0,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">853 - 1289</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,85,85,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">349 - 608</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,170,170,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">79 - 181</span></div>';
+                html += '</div>';
+            }
+            
+            const vulnLayers = [
+                { layer: vulnAlbiLayerInteractive, name: 'Albi' },
+                { layer: vulnCastresLayerInteractive, name: 'Castres' },
+                { layer: vulnPuylaurensLayerInteractive, name: 'Puylaurens' }
+            ];
+
+            const activeVuln = vulnLayers.find(v => v.layer && mapInteractive.hasLayer(v.layer));
+
+            if (activeVuln) {
+                hasLayers = true;
+                html += '<div style="margin-bottom:12px;">';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Vulnérabilité ' + activeVuln.name + '</strong>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,0,0,0.7); margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">2.5 - 3.0 (Très élevé)</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,165,0,0.7); margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">2.0 - 2.5 (Élevé)</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,255,0,0.7); margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">1.5 - 2.0 (Moyen)</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(144,238,144,0.7); margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">1.0 - 1.5 (Faible)</span></div>';
+                html += '</div>';
+            }
+
+            const icuLayers = [
+                { layer: icuCastresLayerInteractive, name: 'Castres' },
+                { layer: icuAlbiLayerInteractive, name: 'Albi' },
+                { layer: icuPuylaurensLayerInteractive, name: 'Puylaurens' }
+            ];
+
+            const activeICU = icuLayers.find(i => i.layer && mapInteractive.hasLayer(i.layer));
+
+            if (activeICU) {
+                hasLayers = true;
+                html += '<div style="margin-bottom:12px;">';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">ICU ' + activeICU.name + '</strong>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(215,25,28,1.0); margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">6.18 - 7.26 (Très élevé)</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(253,174,97,1.0); margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">5.4 - 6.18 (Élevé)</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,255,191,1.0); margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">4.01 - 5.4 (Moyen)</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(171,221,164,1.0); margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">2.49 - 4.01 (Faible)</span></div>';
+                html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(43,131,186,1.0); margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">0.60 - 2.49 (Très faible)</span></div>';
+                html += '</div>';
+            }
+
+            if (!hasLayers) {
+                html += '<p style="font-style:italic; color:#666; font-size:0.9em; margin:0;">Activez des couches pour voir la légende</p>';
+            }
+
+            legendDiv.innerHTML = html;
+        }
+
+        // Mise à jour initiale
+        updateLegendInteractive();
+
+        // Ajuster la vue
+        if (communesLayerInteractive) {
+            mapInteractive.fitBounds(communesLayerInteractive.getBounds());
+        }
+
+        console.log("✓ Carte interactive avec fullscreen et accordéon finalisée");
     </script>
 </body>
 </html>

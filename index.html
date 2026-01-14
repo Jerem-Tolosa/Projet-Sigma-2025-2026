@@ -563,13 +563,13 @@
             <div class="temperature-maps">
                 <!-- Carte population 0-14 ans -->
                 <div class="map-container">
-                    <div class="map-header">Population de 0 à 14 ans</div>
+                    <div class="map-header">Population de 0 à 14 ans en 2021</div>
                     <div class="map-wrapper" id="map-pop0014"></div>
                 </div>
 
                 <!-- Carte population âgée -->
                 <div class="map-container">
-                    <div class="map-header">Population Âgée de 65 ans et Plus</div>
+                    <div class="map-header">Population Âgée de 65 ans et Plus en 2021</div>
                     <div class="map-wrapper" id="map-population"></div>
                 </div>
             </div>
@@ -1039,7 +1039,7 @@
             div.style.border = '1px solid #ddd';
             div.style.borderRadius = '5px';
             
-            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Population 0-14 ans</h4>';
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Population 0-14 ans (2021)</h4>';
             
             const categories = [
                 { label: '418 - 752', color: 'rgba(255,0,0,1.0)' },
@@ -1228,7 +1228,7 @@
             div.style.border = '1px solid #ddd';
             div.style.borderRadius = '5px';
             
-            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Population 65 ans et +</h4>';
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Population 65 ans et + (2021)</h4>';
             
             const categories = [
                 { label: '853 - 1289', color: 'rgba(255,0,0,1.0)' },
@@ -1342,7 +1342,7 @@
             div.style.border = '1px solid #ddd';
             div.style.borderRadius = '5px';
             
-            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Température moyenne</h4>';
+            div.innerHTML = '<h4 style="margin:0 0 10px 0; font-size:0.95em; font-weight:600;">Température moyenne<br>en août 2024<br></h4>';
             
             const categories = [
                 { label: 'Très chaud (≥28°C)', color: '#e31a1c' },
@@ -2588,7 +2588,7 @@
             return popupContent;
         }
 
-        // ===== COUCHES ICU (ÎLOTS DE CHALEUR) =====
+        // ===== COUCHES ICU  =====
         console.log("Chargement des couches ICU...");
 
         mapInteractive.createPane('pane_icu_castres_interactive');
@@ -2757,7 +2757,7 @@
                 return;
             }
             
-            // Filtrer les communes qui correspondent
+            // Filtrer les communes
             const matches = allCommunes.filter(commune => 
                 commune.nom.toLowerCase().includes(searchText.toLowerCase())
             );
@@ -2846,7 +2846,7 @@
             }
         }
 
-        // ===== FONCTION D'APPLICATION DU FILTRE (VERSION CORRIGÉE) =====
+        // ===== FONCTION D'APPLICATION DU FILTRE =====
         function applyFilterToAllLayers() {
             const layersToFilter = [
                 { 
@@ -2967,7 +2967,7 @@
             }
         };
 
-        // ===== FONCTION TOGGLE LAYER (VERSION CORRIGÉE) =====
+        // ===== FONCTION TOGGLE LAYER =====
         window.toggleLayer = function(layerName) {
             const checkbox = document.getElementById('layer-' + layerName);
             const isChecked = checkbox.checked;
@@ -3170,7 +3170,7 @@
             if (communesLayerInteractive && mapInteractive.hasLayer(communesLayerInteractive)) {
                 hasLayers = true;
                 html += '<div style="margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #ddd;">';
-                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Limites communales</strong>';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Limites communales 2025</strong>';
                 html += '<div style="width:25px; height:15px; background:rgba(244,228,193,0.25); margin-right:8px; border:1px solid #ffffff;"></div>';
                 html += '</div>';
             }
@@ -3178,7 +3178,7 @@
             if (tempCommuneLayerInteractive && mapInteractive.hasLayer(tempCommuneLayerInteractive)) {
                 hasLayers = true;
                 html += '<div style="margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #ddd;">';
-                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Température</strong>';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Température en août 2024</strong>';
                 html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:#e31a1c; margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">≥28°C</span></div>';
                 html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:#ff7f00; margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">26-28°C</span></div>';
                 html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:#b2df8a; margin-right:8px; border:1px solid #232323;"></div><span style="font-size:0.8em;">24-26°C</span></div>';
@@ -3188,7 +3188,7 @@
             if (pop0014LayerInteractive && mapInteractive.hasLayer(pop0014LayerInteractive)) {
                 hasLayers = true;
                 html += '<div style="margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #ddd;">';
-                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Pop. 0-14 ans</strong>';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Pop. 0-14 ans en 2021</strong>';
                 html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,0,0,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">418 - 752</span></div>';
                 html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,85,85,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">156 - 263</span></div>';
                 html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,170,170,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">41 - 88</span></div>';
@@ -3198,7 +3198,7 @@
             if (pop65pLayerInteractive && mapInteractive.hasLayer(pop65pLayerInteractive)) {
                 hasLayers = true;
                 html += '<div style="margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #ddd;">';
-                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Pop. 65+ ans</strong>';
+                html += '<strong style="color:#2c3e50; display:block; margin-bottom:5px; font-size:0.9em;">Pop. 65+ ans en 2021</strong>';
                 html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,0,0,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">853 - 1289</span></div>';
                 html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,85,85,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">349 - 608</span></div>';
                 html += '<div style="display:flex; align-items:center; margin:3px 0;"><div style="width:25px; height:15px; background:rgba(255,170,170,1.0); margin-right:8px; border:1px solid #999;"></div><span style="font-size:0.8em;">79 - 181</span></div>';
